@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Beer!</title>
+
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+        crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+        crossorigin="anonymous"></script>
+
+
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Brewery Survey</h2>
+            </div>
+        </div>
+
+        <hr>
+
+        <h3>
+            <strong>Which Brewery Should I go to Tonight?</strong>
+        </h3>
+
+        <form>
+
+            <h2>Please answer all questions to get a complete recommendation</h2>
+
+            <!-- Question 1 -->
+            <h4><strong>1.) Do you prefer beer or cider?</strong></h4>
+            <select class="chosen-select" id="q1">
+                <option value="">** Select an option</option>
+                <option value="1">Beer</option>
+                <option value="2">Cider</option>
+            </select>
+            <br>
+            <br>
+
+            <!-- Question 2 -->
+            <h4><strong>2.) Are you planning on being Minneapolis or St. Paul?</strong></h4>
+            <select class="chosen-select" id="q2">
+                <option value="">** Select an option</option>
+                <option value="1">Minneapolis</option>
+                <option value="2">St. Paul</option>
+            </select>
+            <br>
+            <br>
+
+            <!-- Question 3 -->
+            <h4><strong>3.) If you prefer beer, what type of beer do you like the most? (If your favorite beer is not
+                    listed, choose the closest option)</strong></h4>
+            <select class="chosen-select" id="q3">
+                <option value="">** Select an option</option>
+                <option value="1">Kolsch</option>
+                <option value="2">IPA</option>
+                <option value="3">Stout</option>
+                <option value="4">Brown Ale</option>
+                <option value="5">Lager</option>
+            </select>
+            <br>
+            <br>
+
+            <!-- Question 4 -->
+            <h4><strong>4.) What alcohol % (ABV) do you generally enjoy consuming most?</strong></h4>
+            <select class="chosen-select" id="q4">
+                <option value="">** Select an option</option>
+                <option value="1">Less Than 3.5%</option>
+                <option value="2">Between 3.5% and 5%</option>
+                <option value="3">Between 5% and 6.5%</option>
+                <option value="4">Between 6.5% and 8%</option>
+                <option value="5">Higher than 8%</option>
+            </select>
+            <br>
+            <br>
+
+            <!-- Question 5 -->
+            <h4><strong>5.) Is there a range of IBUs that you generally enjoy consuming?</strong></h4>
+            <select class="chosen-select" id="q5">
+                <option value="">** Select an option</option>
+                <option value="1">0 - 25</option>
+                <option value="2">25 - 50</option>
+                <option value="3">50+</option>
+                <option value="4">I am not sure what effect IBUs have on beer</option>
+            </select>
+            <br>
+            <br>
+
+            <!-- Question 6 -->
+            <h4><strong>6.) If you are in Minneapolis, what part of town are you in?</strong></h4>
+            <select class="chosen-select" id="q6">
+                <option value="">** Select an option</option>
+                <option value="1">Uptown</option>
+                <option value="2">Northeast</option>
+                <option value="3">Downtown</option>
+                <option value="4">I am in St. Paul</option>
+            </select>
+            <br>
+            <br>
+
+
+            <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" id="submitBtn">Submit</button>
+            <br>
+            <br>
+        </form>
+    </div>
+
+
+    <script type="text/javascript">
+        console.log("Answers Saved")
+        $("#submitBtn").on("click", function (event) {
+            event.preventDefault();
+
+            {{!-- var matchStatus = $('.modal-title');
+            var modalBody = $('.modal-body'); --}}
+            // set responses to local variables
+            var beerCider = parseInt($('#q1').val());
+            var genLoc = parseInt($('#q2').val());
+            var beerType = parseInt($('#q3').val());
+            var socialSetting = parseInt($('#q4').val());
+            var food = parseInt($('#q5').val());
+            var partOfTown = parseInt($('#q6').val());
+        
+
+        var userAnswers = {
+            beerCider,
+            genLoc,
+            beerType,
+            socialSetting,
+            food,
+            partOfTown
+        }
+
+        console.log(userAnswers);
+
+        
+
+    });
+
+    </script>
+
+</body>
