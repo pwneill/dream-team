@@ -35,77 +35,53 @@
 
             <h2>Please answer all questions to get a complete recommendation</h2>
 
-            <!-- Question 1 -->
-            <h4><strong>1.) Do you prefer beer or cider?</strong></h4>
+            <h4><strong>1.) Where are you looking to drink?</strong></h4>
             <select class="chosen-select" id="q1">
                 <option value="">** Select an option</option>
-                <option value="1">Beer</option>
-                <option value="2">Cider</option>
+                <option value="1">Minneapolis (South)</option>
+                <option value="2">Minneapolis (Downtown)</option>
+                <option value="3">Minneapolis (Northeast)</option>
+                <option value="4">St. Paul</option>
+                <option value="5">Western Suburbs</option>
             </select>
             <br>
             <br>
 
-            <!-- Question 2 -->
-            <h4><strong>2.) Are you planning on being Minneapolis or St. Paul?</strong></h4>
+            <h4><strong>2.) What type of beer do you normally drink?</strong></h4>
             <select class="chosen-select" id="q2">
                 <option value="">** Select an option</option>
-                <option value="1">Minneapolis</option>
-                <option value="2">St. Paul</option>
+                <option value="1">Cider</option>
+                <option value="2">Kolsch</option>
+                <option value="3">IPA</option>
+                <option value="4">Stout</option>
+                <option value="5">Brown Ale</option>
+                <option value="6">Lager</option>
             </select>
             <br>
             <br>
 
-            <!-- Question 3 -->
-            <h4><strong>3.) If you prefer beer, what type of beer do you like the most? (If your favorite beer is not
-                    listed, choose the closest option)</strong></h4>
+            <h4><strong>3.) How alcoholic would you like your beer?</strong></h4>
             <select class="chosen-select" id="q3">
                 <option value="">** Select an option</option>
-                <option value="1">Kolsch</option>
-                <option value="2">IPA</option>
-                <option value="3">Stout</option>
-                <option value="4">Brown Ale</option>
-                <option value="5">Lager</option>
+                <option value="1">Least Alcoholic (Less Than 3.5% Alcohol by Volume)</option>
+                <option value="2">Somewhat Alcoholic (Between 3.5% and 5% ABV)</option>
+                <option value="3">Fairly Alcoholic (Between 5% and 6.5% ABV)</option>
+                <option value="4">Strongly Alcoholic (Between 6.5% and 8% ABV)</option>
+                <option value="5">Very Strongly Alcoholic (Higher than 8% ABV)</option>
             </select>
             <br>
             <br>
 
-            <!-- Question 4 -->
-            <h4><strong>4.) What alcohol % (ABV) do you generally enjoy consuming most?</strong></h4>
+            <h4><strong>4.) How bitter do you like your beers?</strong></h4>
             <select class="chosen-select" id="q4">
                 <option value="">** Select an option</option>
-                <option value="1">Less Than 3.5%</option>
-                <option value="2">Between 3.5% and 5%</option>
-                <option value="3">Between 5% and 6.5%</option>
-                <option value="4">Between 6.5% and 8%</option>
-                <option value="5">Higher than 8%</option>
+                <option value="1">Not at all bitter (5 - 25 International Bittering Units)</option>
+                <option value="2">Somewhat bitter (25 - 50 IBUs)</option>
+                <option value="3">Fairly bitter (50 - 75 IBUs)</option>
+                <option value="4">Very bitter (more than 75 IBUs)</option>
             </select>
             <br>
             <br>
-
-            <!-- Question 5 -->
-            <h4><strong>5.) Is there a range of IBUs that you generally enjoy consuming?</strong></h4>
-            <select class="chosen-select" id="q5">
-                <option value="">** Select an option</option>
-                <option value="1">0 - 25</option>
-                <option value="2">25 - 50</option>
-                <option value="3">50+</option>
-                <option value="4">I am not sure what effect IBUs have on beer</option>
-            </select>
-            <br>
-            <br>
-
-            <!-- Question 6 -->
-            <h4><strong>6.) If you are in Minneapolis, what part of town are you in?</strong></h4>
-            <select class="chosen-select" id="q6">
-                <option value="">** Select an option</option>
-                <option value="1">Uptown</option>
-                <option value="2">Northeast</option>
-                <option value="3">Downtown</option>
-                <option value="4">I am in St. Paul</option>
-            </select>
-            <br>
-            <br>
-
 
             <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" id="submitBtn">Submit</button>
             <br>
@@ -115,35 +91,28 @@
 
 
     <script type="text/javascript">
-        console.log("Answers Saved")
         $("#submitBtn").on("click", function (event) {
+            console.log("Answers Saved")
             event.preventDefault();
 
-            {{!-- var matchStatus = $('.modal-title');
-            var modalBody = $('.modal-body'); --}}
             // set responses to local variables
-            var beerCider = parseInt($('#q1').val());
-            var genLoc = parseInt($('#q2').val());
-            var beerType = parseInt($('#q3').val());
-            var socialSetting = parseInt($('#q4').val());
-            var food = parseInt($('#q5').val());
-            var partOfTown = parseInt($('#q6').val());
-        
+            var beerLocation = parseInt($('#q1').val());
+            var beerType = parseInt($('#q2').val());
+            var beerABV = parseInt($('#q3').val());
+            var beerBitter = parseInt($('#q4').val());
 
-        var userAnswers = {
-            beerCider,
-            genLoc,
-            beerType,
-            socialSetting,
-            food,
-            partOfTown
-        }
+            var userAnswers = {
+                location: beerLocation,
+                type: beerType,
+                abv: beerABV,
+                bitterness: beerBitter
+            }
 
-        console.log(userAnswers);
-
-        
-
-    });
+            $.post("/api/beers", userAnswers, function (data) {
+                console.log(userAnswers);
+                console.log(data)
+            })
+        });
 
     </script>
 
