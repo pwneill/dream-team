@@ -5,23 +5,21 @@ $("#submitBtn").on("click", function (event) {
     // var matchStatus = $('.modal-title');
     // var modalBody = $('.modal-body');
     // set responses to local variables
-    var beerCider = parseInt($('#q1').val());
-    var genLoc = parseInt($('#q2').val());
-    var beerType = parseInt($('#q3').val());
-    var abv = parseInt($('#q4').val());
-    var ibu = parseInt($('#q5').val());
-    var partOfTown = parseInt($('#q6').val());
+    var genLoc = parseInt($('#q1').val());
+    var beerType = parseInt($('#q2').val());
+    var abv = parseInt($('#q3').val());
+    var ibu = parseInt($('#q4').val());
+    // var ibu = parseInt($('#q5').val());
+    // var partOfTown = parseInt($('#q6').val());
 
     var beerArr = [];
     var randomBeer;
 
     var answer = {
-        beerCider,
         genLoc,
         beerType,
         abv,
-        ibu,
-        partOfTown
+        ibu
     }
 
 
@@ -44,11 +42,11 @@ $("#submitBtn").on("click", function (event) {
     }
 
     function beerChooser() {
-        if (beerType === 1) {
+        if (beerType === 2) {
             //Return Kolsch Style Beer Type for randomBrewery
             abv();
             ibu();
-            match(abv(), ibu());
+            match(abvArr, ibuArr);
 
             var breweryBeers = matches //from match function
 
@@ -64,11 +62,11 @@ $("#submitBtn").on("click", function (event) {
             randomBeer = beerArr[Math.floor(Math.random() * beerArr.length)];
             console.log(randomBeer);
 
-        } else if (beerType === 2) {
+        } else if (beerType === 3) {
             //Return IPA Style Beer Type for randomBrewery
             abv();
             ibu();
-            match(abv(), ibu());
+            match(abvArr, ibuArr);
 
             var breweryBeers = matches //from match function
 
@@ -84,12 +82,12 @@ $("#submitBtn").on("click", function (event) {
             randomBeer = beerArr[Math.floor(Math.random() * beerArr.length)];
             console.log(randomBeer);
 
-        } else if (beerType === 3) {
+        } else if (beerType === 4) {
             //Return Stout Style Beer Type for randomBrewery
 
             abv();
             ibu();
-            match(abv(), ibu());
+            match(abvArr, ibuArr);
 
             var breweryBeers = matches //from match function
 
@@ -105,12 +103,12 @@ $("#submitBtn").on("click", function (event) {
             randomBeer = beerArr[Math.floor(Math.random() * beerArr.length)];
             console.log(randomBeer);
 
-        } else if (beerType === 4) {
+        } else if (beerType === 5) {
             //Return Brown Ale Style Beer Type for randomBrewery
 
             abv();
             ibu();
-            match(abv(), ibu());
+            match(abvArr, ibuArr);
 
             var breweryBeers = matches //from match function
 
@@ -126,12 +124,12 @@ $("#submitBtn").on("click", function (event) {
             randomBeer = beerArr[Math.floor(Math.random() * beerArr.length)];
             console.log(randomBeer);
 
-        } else if (beerType === 5) {
+        } else if (beerType === 6) {
             //Return Lager Style Beer Type for randomBrewery
 
             abv();
             ibu();
-            match(abv(), ibu());
+            match(abvArr, ibuArr);
 
             var breweryBeers = matches //from match function
 
@@ -251,5 +249,21 @@ $("#submitBtn").on("click", function (event) {
         }
         return matches;
     }
+
+    function subtract(a, b) {
+        return a - b;
+    }
+
+    function difference(a, b) {
+        var count = abs(a.reduce(subtract) - b.reduce(subtract));
+        console.log(count);
+        return count;
+    }
+
+    //difference(ibuArr, abvArr)
+
+    //Instead of a match logic, create array difference logic. What is the difference between array a and array b - that difference would open the door for us to use the friend finder logic.
+
+    //Create logic for "if the user doesn't match with a beer, here is a beer that everyone likes."
 
 });
