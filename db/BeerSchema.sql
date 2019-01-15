@@ -9,3 +9,6 @@ brewery_beer text
 )
 
 SELECT * FROM beer;
+
+ALTER TABLE beer
+ADD FOREIGN KEY (breweryID) REFERENCES brewery(id);
