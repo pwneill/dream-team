@@ -9,3 +9,7 @@ brewery_beer text
 )
 
 SELECT * FROM beer;
+
+/* The INNER JOIN Query */
+
+SELECT brewery_beer, brewery_name FROM beer INNER JOIN brewery ON beer.breweryID = brewery.breweryID;

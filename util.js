@@ -23,6 +23,23 @@ if (process.env.JAWSDB_URL) {
   });
 }
 
+
+function beer() {
+  var beers = [];
+
+  var queryString = "SELECT Name FROM brewery;";
+  connection.query(queryString, function(err, res) {
+    if (err) {
+      throw err;
+    }
+    res.forEach(function(brewery) {
+      breweries.push(brewery.Name);
+    });
+    updateBrewery(breweries);
+  });
+}
+
+
 function updateBrewery(breweries) {
   breweries.forEach(function(brewery) {
       console.log(brewery)
