@@ -21,7 +21,7 @@ connection.connect(function (err) {
     readfood_db();// Works
     readbeer_db();// Works
     selectJoin();// Works
-    selectWhere();
+    selectWhere(); // Works
 });
 
 function readbrewery_db() {
