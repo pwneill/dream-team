@@ -1,4 +1,4 @@
-var db = require("../db");
+var beers_db = require("../models/tbd");
 
 
 module.exports = function(app) {
@@ -7,44 +7,45 @@ module.exports = function(app) {
   app.post("/api/beers", function(req, res) {
     console.log(req.body)
 
-    var abvIbu = [];
+    //Creating an "allBeers" object to compare with user entered object
+    var allBeers = [];
+    var dbBeers = {}
 
-    for (var i=0; i<allBeers.length; i++) {
-        abvIbu = [allBeers.abv[i], allBeers.ibu[i]]
+    for (var i=0; i<beers_db.length; i++) {
+        dbBeers[i] = {
+          genLoc: beers_db.locationId[i],
+          beerType: beers_db.beerTypeId[i],
+          abv: beers_db.abvId[i],
+          ibu: beers_db.ibuId[i],
+        }
+
+        allBeers.push(dbBeers[i]);
     }
+
+    console.log(allBeers);
     
     var user = req.body
     var matchBeer = "";
-    var matchPhoto = "";
-    var matchIbu = "";
-    var matchAbv = "";
     var matchBrewery = "";
-    var matchFood = [];
     var totalDiff;
     var bestDiff = 100;
+
+         
     
     for (var i=0; i<allBeers.length; i++) {
-        for (var j=0; j<user.abvIbu.length; j++) {
-            totalDiff += Math.abs(parseInt(user.abvIbu[j]) - parseInt(allBeers.abvIbu[i]))
+        for (var j=0; j<user.answer; j++) {
+            totalDiff += Math.abs(parseInt(user.abvIbu[j]) - parseInt(allBeers.abvIbu[j]))
         }
     
         if(totalDiff <= bestDiff) {
-            matchBeer = allBeers.name;
-            matchPhoto = allBeers.photo;
-            matchIbu = allBeers.ibu;
-            matchAbv = allBeers.abv;
-            matchBrewery = allBeers.brewery;
-            matchFood = [allBeers.food[0], allBeers.food[1], allBeers.food[2]];
+            matchBeer = beers_db.name;
+            matchBrewery = beers_db.brewery;
             bestDiff = totalDiff;
         }
     
         res.json({
             matchBeer,
-            matchPhoto,
-            matchIbu,
-            matchAbv,
             matchBrewery,
-            matchFood,
         })
     }
   });
@@ -73,14 +74,6 @@ module.exports = function(app) {
     var length = 60
     var randomNum = Math.floor(Math.random() + 1)* length
     res.json(randomNum)
-  })
-  
-
-
-// for var (i = 0; i < beers_db.length; i++) {
-//   if (beers_db.location = userInput.location) {
-//     beers_db.location[i].push
-//   };
-// };
+  });
 
 };
