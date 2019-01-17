@@ -17,3 +17,11 @@
   background: #daa520;
   color: white;
 }
+h1{
+  font-family: 'Permanent Marker', cursive;
+  font-size: 64px
+}
+p{
+  font-family: 'Martel', serif;
+  font-size:20px;
+}

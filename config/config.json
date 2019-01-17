@@ -1,8 +1,8 @@
 {
     "development": {
       "username": "root",
-      "password": "Enroll2018",
-      "database": "exampledb",
+      "password": "LorissaLynn123118!",
+      "database": "lagerHead_db",
       "host": "localhost",
       "dialect": "mysql"
     },
