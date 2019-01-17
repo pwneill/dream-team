@@ -246,7 +246,8 @@ $("#submitBtn").on("click", function (event) {
     //     }
     // }
 
-    //Difference is a function that finds the difference between the abvArr.length and the ibuArr.length. Finding the difference in length will produce a number. That number could correspond to beers...
+    //Difference is a function that finds the difference between the abvArr.length and the ibuArr.length. 
+    //Finding the difference in length will produce a number. That number could correspond to beers...
 
     // function difference(a, b) {
     //     var count = abs(a.length - b.length);
@@ -256,7 +257,8 @@ $("#submitBtn").on("click", function (event) {
 
     //difference2(ibuArr, abvArr)
 
-    
+    // *match err catch*
+
     // function match(a, b) {
     //     var matches = [];
 

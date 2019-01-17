@@ -1,4 +1,5 @@
-var db = require("../models");
+var db = require("../db");
+
 
 module.exports = function(app) {
   // Get all examples
@@ -68,4 +69,10 @@ module.exports = function(app) {
       res.json(dbExample);
     });
   });
+};
+
+for var (i = 0; i < beers_db.length; i++) {
+  if (beers_db.location = userInput.location) {
+    beers_db.location[i].push
+  };
 };
