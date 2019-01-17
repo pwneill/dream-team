@@ -70,8 +70,3 @@ module.exports = function(app) {
   });
 };
 
-for var (i = 0; i < beers_db.length; i++) {
-  if (beers_db.location = userInput.location) {
-    beers_db.location[i].push
-  };
-};
