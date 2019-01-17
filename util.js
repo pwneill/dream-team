@@ -31,9 +31,7 @@ function updateBeers(beers) {
     fs.writeFileSync("./log.txt", newLine, function(err) {
       if (err) throw err;
     });
-    fs.appendFileSync("./log.txt", "Now running: " + beers[i], function(
-      err
-    ) {
+    fs.appendFileSync("./log.txt", "Now running: " + beers[i], function(err) {
       if (err) throw err;
     });
     // breweries.forEach(function(brewery) {
@@ -43,7 +41,9 @@ function updateBeers(beers) {
 
     var query =
       "https://api.untappd.com/v4/search/beer?q=" +
-      BeerBrewery + " " + BeerName +
+      BeerBrewery +
+      " " +
+      BeerName +
       "&client_id=" +
       id +
       "&client_secret=" +
@@ -65,7 +65,6 @@ function updateBeers(beers) {
           var desc = beerData.beer_description;
           var style = beerData.beer_style;
 
-
           //   console.log(breweryData);
 
           var queryString = "UPDATE brewery ";
@@ -79,7 +78,9 @@ function updateBeers(beers) {
             fs.appendFileSync("./log.txt", newLine, function(err) {
               if (err) throw err;
             });
-            fs.appendFileSync("./log.txt", "Query: " + queryString, function(err) {
+            fs.appendFileSync("./log.txt", "Query: " + queryString, function(
+              err
+            ) {
               if (err) throw err;
             });
             fs.appendFileSync(
@@ -120,116 +121,155 @@ function beer() {
     }
     res.forEach(function(beer) {
       beers.push({
-        "name": beer.brewery_beer,
-        "brewery": beer.brewery_name}
-        );
+        name: beer.brewery_beer,
+        brewery: beer.brewery_name
+      });
       fs.writeFileSync("./beer_working.txt", newLine, function(err) {
         if (err) throw err;
       });
-      fs.appendFileSync("./beer_working.txt", "Name: " + beer.brewery_beer + "\n", function(err) {
-        if (err) throw err;
-      });
-      fs.appendFileSync("./beer_working.txt", "Brewery: " + beer.brewery_name + "\n", function(err) {
-        if (err) throw err;
-      });
-    })
+      fs.appendFileSync(
+        "./beer_working.txt",
+        "Name: " + beer.brewery_beer + "\n",
+        function(err) {
+          if (err) throw err;
+        }
+      );
+      fs.appendFileSync(
+        "./beer_working.txt",
+        "Brewery: " + beer.brewery_name + "\n",
+        function(err) {
+          if (err) throw err;
+        }
+      );
+    });
 
-    updateBeers(beers)
+    updateBeers(beers);
   });
 }
 
 function updateBrewery(breweries) {
-  for (i = 0; i < 2; i++) {
-    fs.writeFileSync("./log.txt", newLine, function(err) {
-      if (err) throw err;
-    });
-    fs.appendFileSync("./log.txt", "Now running: " + breweries[i], function(
-      err
-    ) {
-      if (err) throw err;
-    });
-    // breweries.forEach(function(brewery) {
-    // console.log(brewery);
-    Brewery = breweries[i].replace(/\s/g, "+").replace("'", "");
+  console.log("Hola!")
+  // breweries.forEach(function(brewery) {
+  //   // breweries.forEach(function(brewery) {
+  //   Brewery = {
+  //     name: brewery.name.replace(/\s/g, "+").replace("'", ""),
+  //     id: brewery.id
+  //   };
 
-    var query =
-      "https://api.untappd.com/v4/search/brewery?q=" +
-      Brewery +
-      "&client_id=" +
-      id +
-      "&client_secret=" +
-      secret;
+  //   var query =
+  //     "https://api.untappd.com/v4/search/brewery?q=" +
+  //     Brewery.name +
+  //     "&client_id=" +
+  //     id +
+  //     "&client_secret=" +
+  //     secret;
 
-    fs.appendFileSync("./log.txt", newLine, function(err) {
-      if (err) throw err;
-    });
-    fs.appendFileSync("./log.txt", "Query: " + query, function(err) {
-      if (err) throw err;
-    });
+  //   fs.appendFileSync("./log.txt", newLine, function(err) {
+  //     if (err) throw err;
+  //   });
+  //   fs.appendFileSync("./log.txt", "Brewery: " + Brewery.name, function(err) {
+  //     if (err) throw err;
+  //   });
 
-    https
-      .get(query, function(resp) {
-        resp.on("data", function(data) {
-          var breweryData = JSON.parse(data).response.brewery.items[0].brewery;
-          var label = breweryData.brewery_label;
-          var lat = breweryData.location.lat;
-          var lng = breweryData.location.lng;
-          // var name = breweryData.brewery_name;
+  //   fs.appendFileSync("./log.txt", "\n Query: " + query, function(err) {
+  //     if (err) throw err;
+  //   });
 
-          //   console.log(breweryData);
+  //   doHTTP(query, Brewery);
+  //   // beer();
+  // });
+  // }
+}
 
-          var queryString = "UPDATE brewery ";
-          queryString += " SET label = " + '"' + label + '"';
-          queryString += ", latitude = " + lat;
-          queryString += ", longitude = " + lng;
-          queryString += " WHERE Name = " + '"' + Brewery + '"';
-
-          connection.query(queryString, function(err, response) {
-            fs.appendFileSync("./log.txt", newLine, function(err) {
-              if (err) throw err;
-            });
-            fs.appendFileSync("./log.txt", "Query: " + query, function(err) {
-              if (err) throw err;
-            });
-            fs.appendFileSync(
-              "./log.txt",
-              "Response: " + JSON.parse(response),
-              function(err) {
-                if (err) throw err;
-              }
-            );
-            if (err) {
-              fs.appendFileSync("./log.txt", newLine, function(err) {
-                if (err) throw err;
-              });
-              fs.appendFileSync("./log.txt", "Error: " + err.stack, function(
-                err
-              ) {});
-            }
-            console.log("done");
-          });
+function doHTTP(query, Brewery) {
+  console.log("do it", query);
+  https.get(query, function(resp) {
+    resp.on("data", function(data) {
+      try {
+        var breweryData = JSON.parse(data).response.brewery.items[0].brewery;
+        sqlInsert(breweryData);
+      } catch (err) {
+        fs.appendFileSync("./log.txt", newLine, function(err) {
+          if (err) throw err;
         });
-      })
-      .on("error", function(err) {
-        console.log("Error: " + err.message);
+        fs.appendFileSync("./log.txt", "Err: " + err, function(err) {
+          if (err) throw err;
+        });
+      }
+    });
+  });
+}
+
+function sqlInsert(breweryData) {
+  var label = breweryData.brewery_label;
+  var lat = breweryData.location.lat;
+  var lng = breweryData.location.lng;
+
+  var queryString = "UPDATE brewery ";
+  queryString += " SET label = " + '"' + label + '"';
+  queryString += ", latitude = " + lat;
+  queryString += ", longitude = " + lng;
+  queryString += " WHERE id = " + '"' + Brewery.id + '"';
+
+  connection
+    .query(queryString, function(err, response) {
+      fs.appendFileSync("./log.txt", newLine, function(err) {
+        if (err) throw err;
       });
-    // });
-  }
-  // beer();
+      fs.appendFileSync("./log.txt", "Brewery (189): " + Brewery.name, function(
+        err
+      ) {
+        if (err) throw err;
+      });
+
+      fs.appendFileSync("./log.txt", "\n Query (190): " + query, function(err) {
+        if (err) throw err;
+      });
+      fs.appendFileSync(
+        "./log.txt",
+        "\n Rows Affected: " + response.affectedRows,
+        function(err) {
+          if (err) throw err;
+        }
+      );
+      if (err) {
+        fs.appendFileSync("./log.txt", newLine, function(err) {
+          if (err) throw err;
+        });
+        fs.appendFileSync("./log.txt", "Error: " + err.stack, function(err) {
+          if (err) throw err;
+        });
+      }
+      console.log("done");
+    })
+
+    .on("error", function(err) {
+      console.log("Error: " + err.message);
+    });
+
+    brewery()
 }
 
 function brewery() {
   var breweries = [];
 
-  var queryString = "SELECT Name FROM brewery;";
+  var queryString = "SELECT * FROM brewery WHERE label is null;";
   connection.query(queryString, function(err, res) {
     if (err) {
       throw err;
-    }
+    } else if (res.length === 0) {
+      beer()
+    } else {
     res.forEach(function(brewery) {
-      breweries.push(brewery.Name);
+      newBrewery = {
+        name: brewery.Name,
+        id: brewery.id
+      };
+      breweries.push(newBrewery);
     });
+    console.log(breweries);
     updateBrewery(breweries);
+  }
   });
 }
 
@@ -239,6 +279,6 @@ connection.connect(function(err) {
     return;
   }
   console.log("connected as id " + connection.threadId);
-  beer();
-  // brewery();
+  // beer();
+  brewery();
 });
