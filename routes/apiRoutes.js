@@ -7,7 +7,6 @@ module.exports = function(app) {
   app.post("/api/beers", function(req, res) {
     console.log(req.body)
 
-
     var abvIbu = [];
 
     for (var i=0; i<allBeers.length; i++) {

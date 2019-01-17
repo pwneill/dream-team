@@ -1,6 +1,7 @@
-console.log("Answers Saved")
+
 $("#submitBtn").on("click", function (event) {
     event.preventDefault();
+    console.log("Answers Saved")
 
     // var matchStatus = $('.modal-title');
     // var modalBody = $('.modal-body');

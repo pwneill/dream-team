@@ -91,7 +91,40 @@
 
 
     <script type="text/javascript">
+
         $("#submitBtn").on("click", function (event) {
+        event.preventDefault();
+        console.log("Answers Saved")
+
+        // var matchStatus = $('.modal-title');
+        // var modalBody = $('.modal-body');
+
+        // set responses to local variables
+        var genLoc = parseInt($("#q1").val());
+        var beerType = parseInt($("#q2").val());
+        var abv = parseInt($("#q3").val());
+        var ibu = parseInt($("#q4").val());
+
+
+        var answer = {
+            genLoc: genLoc,
+            beerType: beerType,
+            abv: abv,
+            ibu: ibu
+        }
+
+        console.log(answer);
+
+        var currentURL = window.location.origin;
+
+        $.post(currentURL + "/api/beers", answer, function(res) {
+            console.log(res);
+                }
+            );
+        }
+    );
+        
+       /* $("#submitBtn").on("click", function (event) {
             console.log("Answers Saved")
             event.preventDefault();
 
@@ -112,8 +145,10 @@
                 console.log(userAnswers);
                 console.log(data)
             })
-        });
+        });*/
 
     </script>
 
 </body>
+
+</html>
