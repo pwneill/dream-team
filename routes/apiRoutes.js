@@ -6,43 +6,49 @@ module.exports = function(app) {
   app.post("/api/beers", function(req, res) {
     console.log(req.body)
 
-    var beer = req.body;
-    var beerType = beer.type;
-    var location = beer.location;
-    //SELECT * FROM beer WHERE type = beer.type 
-    var totalDifference;
-    var bestDifference = 50;
-    console.log(newFriend);
-   
-    friendsData.forEach(function(friends){
-        totalDifference = 0
-            
-        for (var j=0; j<newFriend.scores.length; j++){
-            totalDifference += Math.abs((parseInt(newFriend.scores[j])) - parseInt(friends.scores[j])) 
-            
-        }   
 
-        if (totalDifference <= bestDifference) {
-            matchName = friends.name;
-            matchPhoto = friends.photo;
-            bestDifference = totalDifference;
-        }
+    var abvIbu = [];
 
-
-        
-    });
-
-
-   
-    res.json({
-        name: matchName,
-        photo: matchPhoto
-    });
-
-    friendsData.push(newFriend);
+    for (var i=0; i<allBeers.length; i++) {
+        abvIbu = [allBeers.abv[i], allBeers.ibu[i]]
+    }
     
+    var user = req.body
+    var matchBeer = "";
+    var matchPhoto = "";
+    var matchIbu = "";
+    var matchAbv = "";
+    var matchBrewery = "";
+    var matchFood = [];
+    var totalDiff;
+    var bestDiff = 100;
+    
+    for (var i=0; i<allBeers.length; i++) {
+        for (var j=0; j<user.abvIbu.length; j++) {
+            totalDiff += Math.abs(parseInt(user.abvIbu[j]) - parseInt(allBeers.abvIbu[i]))
+        }
+    
+        if(totalDiff <= bestDiff) {
+            matchBeer = allBeers.name;
+            matchPhoto = allBeers.photo;
+            matchIbu = allBeers.ibu;
+            matchAbv = allBeers.abv;
+            matchBrewery = allBeers.brewery;
+            matchFood = [allBeers.food[0], allBeers.food[1], allBeers.food[2]];
+            bestDiff = totalDiff;
+        }
+    
+        res.json({
+            matchBeer,
+            matchPhoto,
+            matchIbu,
+            matchAbv,
+            matchBrewery,
+            matchFood,
+        })
+    }
   });
-
+  
   app.get("/api/examples", function(req, res) {
     db.Example.findAll({}).then(function(dbExamples) {
       res.json(dbExamples);
