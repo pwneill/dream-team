@@ -68,10 +68,19 @@ module.exports = function(app) {
       res.json(dbExample);
     });
   });
-};
 
-for var (i = 0; i < beers_db.length; i++) {
-  if (beers_db.location = userInput.location) {
-    beers_db.location[i].push
-  };
+  app.post("/api/beers/random", function(req, res) {
+    var length = 60
+    var randomNum = Math.floor(Math.random() + 1)* length
+    res.json(randomNum)
+  })
+  
+
+
+// for var (i = 0; i < beers_db.length; i++) {
+//   if (beers_db.location = userInput.location) {
+//     beers_db.location[i].push
+//   };
+// };
+
 };
