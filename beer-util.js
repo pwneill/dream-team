@@ -27,7 +27,6 @@ if (process.env.JAWSDB_URL) {
 }
 
 function sqlInsert(beerData, id) {
-	console.log("yo, dawg, I heard you like sqlInsert", beerData);
 	var description = beerData.beer_description.toString();
 	var type = beerData.beer_style.toString();
 	var abv = beerData.beer_abv.toString(); 
@@ -53,13 +52,13 @@ function sqlInsert(beerData, id) {
 			});
 			fs.appendFileSync(
 				"./log.txt",
-				"beer (49): " + beerData.beer_name,
+				"beer (55): " + beerData.beer_name,
 				function(err) {
 					if (err) throw err;
 				}
 			);
 
-			fs.appendFileSync("./log.txt", "\n Query (55): " + queryString, function(
+			fs.appendFileSync("./log.txt", "\n Query (61): " + queryString, function(
 				err
 			) {
 				if (err) throw err;
@@ -71,42 +70,31 @@ function sqlInsert(beerData, id) {
 					if (err) throw err;
 				}
 			);
-			if (err) {
-				fs.appendFileSync("./log.txt", newLine, function(err) {
-					if (err) throw err;
-				});
-				fs.appendFileSync("./log.txt", "Error: " + err.stack, function(err) {
-					if (err) throw err;
-				});
-			}
 		})
-
 		.on("error", function(err) {
-			fs.appendFileSync("./log.txt", "Error: " + err.stack, function(err) {
+			fs.appendFileSync("./err.txt", "Error: " + err.stack, function(err) {
 				if (err) throw err;
 			});
 		});
 }
 
 function doHTTP(query, id) {
-	// console.log("yo dawg I heard you like doHTTP", query);
 	https.get(query, function(res) {
 
 		res.on("data", function(data) {
 			try {
+				// JSON has weird issues parsing the Untappd response, but breaking it up this way works for some reason don't judge me
 				var newData = JSON.parse(data);
 				var newBeer = newData.response.beers;
 				var beerData = newBeer.items[0].beer;
 
-				// console.log("here's some data", beerData);
-
 				sqlInsert(beerData, id);
 			} catch (err) {
-				fs.appendFileSync("./log.txt", "\n broken id: " + id, function(err) {
+				fs.appendFileSync("./err.txt", "\n broken id: " + id, function(err) {
 					if (err) throw err;
 				});
 
-				fs.appendFileSync("./log.txt", "\n err: " + err.stack, function(err) {
+				fs.appendFileSync("./err.txt", "\n err: " + err.stack, function(err) {
 					if (err) throw err;
 				});
 			}
@@ -126,11 +114,11 @@ function updateBeer(newBeer) {
 	fs.appendFileSync("./log.txt", newLine, function(err) {
 		if (err) throw err;
 	});
-	fs.appendFileSync("./log.txt", "Beer: " + newBeer.name, function(err) {
+	fs.appendFileSync("./log.txt", "Beer (117): " + newBeer.name, function(err) {
 		if (err) throw err;
 	});
 
-	fs.appendFileSync("./log.txt", "\n Query: " + query, function(err) {
+	fs.appendFileSync("./log.txt", "\n Query (121): " + query, function(err) {
 		if (err) throw err;
 	});
 
@@ -140,7 +128,6 @@ function updateBeer(newBeer) {
 function beer() {
 	var queryString = "SELECT * FROM beer WHERE description is null;";
 	connection.query(queryString, function(err, res) {
-		// for (var i = 0; i < 2; i++) {
 		res.forEach(function(beer) {
 			var newBeer = {
 				name: beer.brewery_beer
@@ -153,19 +140,7 @@ function beer() {
 					.replace("'", "")
 					.replace("&", "")
 			};
-			// var newBeer = {
-			// 	name: res[i].brewery_beer
-			// 		.replace(/\s/g, "+")
-			// 		.replace("'", "")
-			// 		.replace("&", ""),
-			// 	id: res[i].id,
-			// 	brewery: res[i].brewery_name
-			// 		.replace(/\s/g, "+")
-			// 		.replace("'", "")
-			// 		.replace("&", "")
-			// };
 			updateBeer(newBeer);
-		// }
 		});
 	});
 }
@@ -178,6 +153,7 @@ connection.connect(function(err) {
 	}
 	// eslint-disable-next-line no-console
 	console.log("connected as id " + connection.threadId);
+	// eslint-disable-next-line no-console
 	console.log(newLine);
 	fs.writeFileSync("./log.txt", "Beer is running", function(err) {
 		if (err) throw err;
