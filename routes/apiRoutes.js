@@ -83,8 +83,10 @@ module.exports = function(app) {
 
 
         res.json({
-          matchBeer: bestMatch[0],
-          matchBrewery: bestMatch[1]
+          matchBeer: bestMatch.beerName,
+          matchBrewery: bestMatch.brewery,
+          matchAbv: bestMatch.abv,
+          matchIbu: bestMatch.ibu
         })
     
     });
