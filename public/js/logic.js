@@ -14,12 +14,12 @@ $("#submitBtn").on("click", function (event) {
     // var partOfTown = parseInt($('#q6').val());
 
 
-    var answer = {
-        genLoc: genLoc,
-        beerType: beerType,
-        abv: abv,
-        ibu: ibu
-    }
+    var answer = [
+        genLoc,
+        beerType,
+        abv,
+        ibu
+    ]
 
     console.log(answer);
 
