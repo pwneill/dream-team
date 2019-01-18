@@ -26,18 +26,25 @@ if (process.env.JAWSDB_URL) {
 	});
 }
 
-function sqlInsert(breweryData, id) {
-	var label = breweryData.brewery_label;
-	var lat = breweryData.location.lat;
-	var lng = breweryData.location.lng;
+function sqlInsert(beerData, id) {
+	console.log("yo, dawg, I heard you like sqlInsert", beerData);
+	var description = beerData.beer_description.toString();
+	var type = beerData.beer_style.toString();
+	var abv = beerData.beer_abv.toString(); 
+	var ibu = beerData.beer_ibu.toString();
 
-	var queryString = "UPDATE brewery ";
+	var queryString = "UPDATE beer ";
 	// eslint-disable-next-line quotes
-	queryString += " SET label = " + '"' + label + '"';
-	queryString += ", latitude = " + lat;
-	queryString += ", longitude = " + lng;
+	queryString += " SET description = " + '"' + description + '"';
+	// eslint-disable-next-line quotes
+	queryString += ", type = " + '"' + type + '"';
+	queryString += ", abv = " + abv;
+	queryString += ", ibu = " + ibu;
 	// eslint-disable-next-line quotes
 	queryString += " WHERE id = " + '"' + id + '"';
+    
+	// eslint-disable-next-line no-console
+	console.log(queryString);
 
 	connection
 		.query(queryString, function(err, response) {
@@ -46,13 +53,13 @@ function sqlInsert(breweryData, id) {
 			});
 			fs.appendFileSync(
 				"./log.txt",
-				"Brewery (189): " + breweryData.name,
+				"beer (49): " + beerData.beer_name,
 				function(err) {
 					if (err) throw err;
 				}
 			);
 
-			fs.appendFileSync("./log.txt", "\n Query (190): " + queryString, function(
+			fs.appendFileSync("./log.txt", "\n Query (55): " + queryString, function(
 				err
 			) {
 				if (err) throw err;
@@ -77,31 +84,40 @@ function sqlInsert(breweryData, id) {
 		.on("error", function(err) {
 			fs.appendFileSync("./log.txt", "Error: " + err.stack, function(err) {
 				if (err) throw err;
-			});		});
+			});
+		});
 }
 
 function doHTTP(query, id) {
-	https.get(query, function(resp) {
-		resp.on("data", function(data) {
+	// console.log("yo dawg I heard you like doHTTP", query);
+	https.get(query, function(res) {
+
+		res.on("data", function(data) {
 			try {
-				var breweryData = JSON.parse(data).response.brewery.items[0].brewery;
+				var newData = JSON.parse(data);
+				var newBeer = newData.response.beers;
+				var beerData = newBeer.items[0].beer;
+
+				// console.log("here's some data", beerData);
+
+				sqlInsert(beerData, id);
 			} catch (err) {
 				fs.appendFileSync("./log.txt", "\n broken id: " + id, function(err) {
 					if (err) throw err;
 				});
-				fs.appendFileSync("./log.txt", "\n err: " + err.message, function(err) {
+
+				fs.appendFileSync("./log.txt", "\n err: " + err.stack, function(err) {
 					if (err) throw err;
 				});
 			}
-			sqlInsert(breweryData, id);
 		});
 	});
 }
 
-function updateBrewery(newBrewery) {
+function updateBeer(newBeer) {
 	var query =
-    "https://api.untappd.com/v4/search/brewery?q=" +
-    newBrewery.name +
+    "https://api.untappd.com/v4/search/beer?q=" +
+    newBeer.brewery + "+" + newBeer.name +
     "&client_id=" +
     id +
     "&client_secret=" +
@@ -110,7 +126,7 @@ function updateBrewery(newBrewery) {
 	fs.appendFileSync("./log.txt", newLine, function(err) {
 		if (err) throw err;
 	});
-	fs.appendFileSync("./log.txt", "Brewery: " + newBrewery.name, function(err) {
+	fs.appendFileSync("./log.txt", "Beer: " + newBeer.name, function(err) {
 		if (err) throw err;
 	});
 
@@ -118,19 +134,38 @@ function updateBrewery(newBrewery) {
 		if (err) throw err;
 	});
 
-	doHTTP(query, newBrewery.id);
-	// beer();
+	doHTTP(query, newBeer.id);
 }
 
-function brewery() {
-	var queryString = "SELECT * FROM brewery WHERE label is null;";
+function beer() {
+	var queryString = "SELECT * FROM beer WHERE description is null;";
 	connection.query(queryString, function(err, res) {
-		res.forEach(function(brewery) {
-			var newBrewery = {
-				name: brewery.Name.replace(/\s/g, "+").replace("'", "").replace("&",""),
-				id: brewery.id
+		// for (var i = 0; i < 2; i++) {
+		res.forEach(function(beer) {
+			var newBeer = {
+				name: beer.brewery_beer
+					.replace(/\s/g, "+")
+					.replace("'", "")
+					.replace("&", ""),
+				id: beer.id,
+				brewery: beer.brewery_name
+					.replace(/\s/g, "+")
+					.replace("'", "")
+					.replace("&", "")
 			};
-			updateBrewery(newBrewery);
+			// var newBeer = {
+			// 	name: res[i].brewery_beer
+			// 		.replace(/\s/g, "+")
+			// 		.replace("'", "")
+			// 		.replace("&", ""),
+			// 	id: res[i].id,
+			// 	brewery: res[i].brewery_name
+			// 		.replace(/\s/g, "+")
+			// 		.replace("'", "")
+			// 		.replace("&", "")
+			// };
+			updateBeer(newBeer);
+		// }
 		});
 	});
 }
@@ -143,6 +178,9 @@ connection.connect(function(err) {
 	}
 	// eslint-disable-next-line no-console
 	console.log("connected as id " + connection.threadId);
-	// beer();
-	brewery();
+	console.log(newLine);
+	fs.writeFileSync("./log.txt", "Beer is running", function(err) {
+		if (err) throw err;
+	});
+	beer();
 });
