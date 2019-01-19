@@ -16,9 +16,9 @@ var connection = mysql.createConnection({
     user: "root",
 
     // Your password
-    password: ""
+    password: "LorissaLynn123118!"
     ,
-    database: "lagerHead_db"
+    database: "LagerHead_db"
 });
 
 connection.connect(function (err) {
@@ -32,22 +32,25 @@ connection.connect(function (err) {
 });
 
 function readbrewery_db() {
-    connection.query("SELECT * FROM brewery" + ";", function (err, res) {
+    connection.query("SELECT * FROM brewery2" + ";", function (err, res) {
         if (err) throw err;
         console.log("Logging out Brewery Names: \n");
         
-            console.log("Brewery Name: " + res[16].Name);
-            var query = "https://api.untappd.com/v4/search/brewery?q=" + res[16].Name + "&client_id=" + id + "&client_secret=" +secret;
-            https.get(query, function(response){
-                console.log(query);
-                // console.log(res);
-                var label = response.brewery.items[0].brewery_label;
-            //     var long = res.brewery;
-            //     var lat = response.brewery;
-                console.log(label);
-            //     console.log(long);
-            //     console.log(lat);
-            })
+            console.log("Brewery Name: " + res[1].Brewery_Name);
+            for (var i = 0; i < res.length; i++){
+                console.log(res[i].Brewery_Name);
+            }
+            // var query = "https://api.untappd.com/v4/search/brewery?q=" + res[16].Name + "&client_id=" + id + "&client_secret=" +secret;
+            // https.get(query, function(response){
+            //     console.log(query);
+            //     // console.log(res);
+            //     var label = response.brewery.items[0].brewery_label;
+            // //     var long = res.brewery;
+            // //     var lat = response.brewery;
+            //     console.log(label);
+            // //     console.log(long);
+            // //     console.log(lat);
+            // })
         
     })
 }

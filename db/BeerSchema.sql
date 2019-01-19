@@ -12,4 +12,8 @@ SELECT * FROM beer;
 
 /* The INNER JOIN Query */
 
-SELECT brewery_beer, brewery_name FROM beer INNER JOIN brewery ON beer.breweryID = brewery.breweryID;
+USE LagerHead_db;
+SELECT beers.Beer_Name, beers.Brewery_Name 
+FROM beers
+INNER JOIN brewery
+ON brewery.Brewery_Name = beers.Brewery_Name;

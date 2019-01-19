@@ -1,4 +1,4 @@
-﻿BeerID,Brewery_Name,Beer_Name,breweryID,LocationID,Beer_Type
+﻿id,Brewery_Name,Beer_Name,breweryID,LocationID,Beer_Type
 134,612 Brew,RV4,2,3,3
 135,612 Brew,Upstairs Downstairs,2,3,5
 136,612 Brew,Light Into Ashes,2,3,5
