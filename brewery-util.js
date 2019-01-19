@@ -46,15 +46,13 @@ function sqlInsert(breweryData, id) {
 			});
 			fs.appendFileSync(
 				"./log.txt",
-				"Brewery (189): " + breweryData.name,
+				"Brewery (49): " + breweryData.name,
 				function(err) {
 					if (err) throw err;
 				}
 			);
 
-			fs.appendFileSync("./log.txt", "\n Query (190): " + queryString, function(
-				err
-			) {
+			fs.appendFileSync("./log.txt", "\n Query (55): " + queryString, function(err) {
 				if (err) throw err;
 			});
 			fs.appendFileSync(
@@ -62,22 +60,13 @@ function sqlInsert(breweryData, id) {
 				"\n Rows Affected: " + response.affectedRows,
 				function(err) {
 					if (err) throw err;
-				}
-			);
-			if (err) {
-				fs.appendFileSync("./log.txt", newLine, function(err) {
-					if (err) throw err;
 				});
-				fs.appendFileSync("./log.txt", "Error: " + err.stack, function(err) {
-					if (err) throw err;
-				});
-			}
 		})
-
 		.on("error", function(err) {
 			fs.appendFileSync("./log.txt", "Error: " + err.stack, function(err) {
 				if (err) throw err;
-			});		});
+			});		
+		});
 }
 
 function doHTTP(query, id) {
@@ -86,10 +75,10 @@ function doHTTP(query, id) {
 			try {
 				var breweryData = JSON.parse(data).response.brewery.items[0].brewery;
 			} catch (err) {
-				fs.appendFileSync("./log.txt", "\n broken id: " + id, function(err) {
+				fs.appendFileSync("./err.txt", "\n broken id: " + id, function(err) {
 					if (err) throw err;
 				});
-				fs.appendFileSync("./log.txt", "\n err: " + err.message, function(err) {
+				fs.appendFileSync("./err.txt", "\n err: " + err.message, function(err) {
 					if (err) throw err;
 				});
 			}
@@ -119,7 +108,6 @@ function updateBrewery(newBrewery) {
 	});
 
 	doHTTP(query, newBrewery.id);
-	// beer();
 }
 
 function brewery() {
@@ -143,6 +131,6 @@ connection.connect(function(err) {
 	}
 	// eslint-disable-next-line no-console
 	console.log("connected as id " + connection.threadId);
-	// beer();
+	
 	brewery();
 });

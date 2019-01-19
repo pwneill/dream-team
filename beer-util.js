@@ -1,14 +1,20 @@
 require("dotenv").config();
 
+// var hour = 1000 * 60 * 60;
 var mysql = require("mysql");
-
-var https = require("https");
 
 var User = process.env.DB_USER;
 var Password = process.env.DB_PASSWORD;
 
-var secret = process.env.CLIENT_SECRET;
-var id = process.env.CLIENT_ID;
+var UntappdClient = require("node-untappd");
+var debug = false;
+var untappd = new UntappdClient(debug);
+
+var clientSecret = process.env.CLIENT_SECRET;
+var clientId = process.env.CLIENT_ID;
+
+untappd.setClientId(clientId);
+untappd.setClientSecret(clientSecret);
 
 var fs = require("fs");
 var newLine = "\n ---------------------------------------\n";
@@ -26,112 +32,111 @@ if (process.env.JAWSDB_URL) {
 	});
 }
 
-function sqlInsert(breweryData, id) {
-	var label = breweryData.brewery_label;
-	var lat = breweryData.location.lat;
-	var lng = breweryData.location.lng;
-
-	var queryString = "UPDATE brewery ";
-	// eslint-disable-next-line quotes
-	queryString += " SET label = " + '"' + label + '"';
-	queryString += ", latitude = " + lat;
-	queryString += ", longitude = " + lng;
-	// eslint-disable-next-line quotes
-	queryString += " WHERE id = " + '"' + id + '"';
-
+function runSQL(data, query) {
 	connection
-		.query(queryString, function(err, response) {
-			fs.appendFileSync("./log.txt", newLine, function(err) {
-				if (err) throw err;
-			});
+		.query(query, function(err, response) {
 			fs.appendFileSync(
 				"./log.txt",
-				"Brewery (189): " + breweryData.name,
+				"\n Response: " + response,
 				function(err) {
 					if (err) throw err;
 				}
 			);
-
-			fs.appendFileSync("./log.txt", "\n Query (190): " + queryString, function(
-				err
-			) {
-				if (err) throw err;
-			});
-			fs.appendFileSync(
-				"./log.txt",
-				"\n Rows Affected: " + response.affectedRows,
-				function(err) {
-					if (err) throw err;
-				}
-			);
-			if (err) {
-				fs.appendFileSync("./log.txt", newLine, function(err) {
-					if (err) throw err;
-				});
-				fs.appendFileSync("./log.txt", "Error: " + err.stack, function(err) {
-					if (err) throw err;
-				});
-			}
 		})
-
 		.on("error", function(err) {
-			fs.appendFileSync("./log.txt", "Error: " + err.stack, function(err) {
+			fs.appendFileSync("./err.txt", "Id: "+ data.id + "\n" + err.stack, function(err) {
 				if (err) throw err;
-			});		});
-}
-
-function doHTTP(query, id) {
-	https.get(query, function(resp) {
-		resp.on("data", function(data) {
-			try {
-				var breweryData = JSON.parse(data).response.brewery.items[0].brewery;
-			} catch (err) {
-				fs.appendFileSync("./log.txt", "\n broken id: " + id, function(err) {
-					if (err) throw err;
-				});
-				fs.appendFileSync("./log.txt", "\n err: " + err.message, function(err) {
-					if (err) throw err;
-				});
-			}
-			sqlInsert(breweryData, id);
+			});
 		});
-	});
 }
 
-function updateBrewery(newBrewery) {
-	var query =
-    "https://api.untappd.com/v4/search/brewery?q=" +
-    newBrewery.name +
-    "&client_id=" +
-    id +
-    "&client_secret=" +
-    secret;
+function queryBuilder(beerData, id) {
+	var description = "'" + beerData.beer_description.replace("'","") + "'";
+	var type = beerData.beer_style.toString();
+	var abv = beerData.beer_abv.toString(); 
+	var ibu = beerData.beer_ibu.toString();
 
-	fs.appendFileSync("./log.txt", newLine, function(err) {
-		if (err) throw err;
-	});
-	fs.appendFileSync("./log.txt", "Brewery: " + newBrewery.name, function(err) {
-		if (err) throw err;
-	});
-
-	fs.appendFileSync("./log.txt", "\n Query: " + query, function(err) {
-		if (err) throw err;
-	});
-
-	doHTTP(query, newBrewery.id);
-	// beer();
+	var queryString = "UPDATE beer ";
+	queryString += " SET description = " + description;
+	// eslint-disable-next-line quotes
+	queryString += ", type = " + '"' + type + '"';
+	queryString += ", abv = " + abv;
+	queryString += ", ibu = " + ibu;
+	// eslint-disable-next-line quotes
+	queryString += " WHERE id = " + id;
+    
+	// eslint-disable-next-line no-console
+	runSQL(beerData, queryString);
 }
 
-function brewery() {
-	var queryString = "SELECT * FROM brewery WHERE label is null;";
+function updateBeer(newBeer) {
+	untappd.beerSearch(function(err,obj){
+		// todo: make this script run automatically after timeout and check to see if there is a response
+		// if (obj.meta.code === 429) {
+		// 	setTimeout(beer,hour);
+		// } else {
+		var beerData = obj.response.beers.items[0].beer;
+
+		if (err) {
+			throw err;
+		}
+		queryBuilder(beerData, newBeer.id);
+		// }
+	}, newBeer);
+}
+
+
+function beer() {
+	var queryString = "SELECT * FROM beer WHERE abv is null;";
 	connection.query(queryString, function(err, res) {
-		res.forEach(function(brewery) {
-			var newBrewery = {
-				name: brewery.Name.replace(/\s/g, "+").replace("'", "").replace("&",""),
-				id: brewery.id
+		// todo: make this script run automatically after timeout and check to see if there is a response
+		// if (res.length != 0) {
+		for (var i = 0; i < 5; i++) {
+		// res.forEach(function(beer) {
+			// var newBeer = {
+			// 	name: beer.brewery_beer
+			// 		.replace(/\s/g, "+")
+			// 		.replace("'", "")
+			// 		.replace("&", "")
+			// 		.replace("#", "%23"),
+			// 	id: beer.id,
+			// 	brewery: beer.brewery_name
+			// 		.replace(/\s/g, "+")
+			// 		.replace("'", "")
+			// 		.replace("&", "")
+			// 		.replace("%", "%23+")
+			// };
+			var newBeer = {
+				q: res[i].brewery_name
+					.replace(/\s/g, "+")
+					.replace("'", "")
+					.replace("&", "")
+					.replace("#", "")
+					.replace(".","") + "+" + res[i].brewery_beer
+					.replace(/\s/g, "+")
+					.replace("'", "")
+					.replace("&", "")
+					.replace("#", "")
+					.replace(".",""),
+
+				name: res[i].brewery_beer
+					.replace(/\s/g, "+")
+					.replace("'", "")
+					.replace("&", "")
+					.replace("#", "")
+					.replace(".",""),
+
+				id: res[i].id,
+				brewery: res[i].brewery_name
+					.replace(/\s/g, "+")
+					.replace("'", "")
+					.replace("&", "")
+					.replace(".",""),
 			};
-			updateBrewery(newBrewery);
-		});
+			updateBeer(newBeer);
+		// });
+			// }
+		}
 	});
 }
 
@@ -143,6 +148,13 @@ connection.connect(function(err) {
 	}
 	// eslint-disable-next-line no-console
 	console.log("connected as id " + connection.threadId);
-	// beer();
-	brewery();
+	// eslint-disable-next-line no-console
+	console.log(newLine);
+	fs.writeFileSync("./log.txt", "Beer is running", function(err) {
+		if (err) throw err;
+	});
+	fs.writeFileSync("./err.txt", "Beer is running", function(err) {
+		if (err) throw err;
+	});
+	beer();
 });

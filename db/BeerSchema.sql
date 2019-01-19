@@ -5,7 +5,11 @@ DROP TABLE IF EXISTS beer;
 CREATE TABLE beer (
 id INT AUTO_INCREMENT PRIMARY KEY,
 brewery_name text,
-brewery_beer text
+brewery_beer text,
+desc text,
+type varchar(255),
+abv float,
+ibu float
 )
 
 SELECT * FROM beer;
