@@ -111,8 +111,14 @@ module.exports = function (app) {
     res.json({
       matchBeer: bestMatch.beerName,
       matchBrewery: bestMatch.brewery,
+      matchDescription: bestMatch.description,
       matchAbv: bestMatch.abv,
-      matchIbu: bestMatch.ibu
+      matchIbu: bestMatch.ibu,
+      matchPicture:bestMatch.picture,
+      matchFood1: bestMatch.matchFood1,
+      matchFood2: bestMatch.matchFood2,
+      matchFood3: bestMatch.matchFood3,
+      matchFood4: bestMatch.matchFood4
     })
 
   });
