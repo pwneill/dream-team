@@ -14,6 +14,8 @@ h4 {
    	}
 
 .header {
+	font-family: 'Permanent Marker';
+	font-size: 64px;
 	background: #daa520;
 	color: white;
 	border-bottom: 2px solid white;
