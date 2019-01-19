@@ -1,11 +1,4 @@
-<<<<<<< HEAD
 node_modules/
 .env
-=======
-<<<<<<< HEAD
-node_modules/
-=======
-node_modules/
-.env
->>>>>>> 5e637229f085dddb9c70fd6ae635ca781ab9ba5c
->>>>>>> 6812e4311da4eea07a5d69cea64e826425d508fc
+log.txt
+err.txt
