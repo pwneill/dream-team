@@ -35,15 +35,13 @@ if (process.env.JAWSDB_URL) {
 function runSQL(data, query) {
 	connection
 		.query(query, function(err, response) {
-			console.log(err);
-			console.log(response);
-			// fs.appendFileSync(
-			// 	"./log.txt",
-			// 	"\n Rows Affected: " + response.affectedRows,
-			// 	function(err) {
-			// 		if (err) throw err;
-			// 	}
-			// );
+			fs.appendFileSync(
+				"./log.txt",
+				"\n Response: " + response,
+				function(err) {
+					if (err) throw err;
+				}
+			);
 		})
 		.on("error", function(err) {
 			fs.appendFileSync("./err.txt", "Id: "+ data.id + "\n" + err.stack, function(err) {
@@ -68,12 +66,10 @@ function queryBuilder(beerData, id) {
 	queryString += " WHERE id = " + id;
     
 	// eslint-disable-next-line no-console
-	console.log(queryString);
 	runSQL(beerData, queryString);
 }
 
 function updateBeer(newBeer) {
-	console.log(newBeer.id);
 	untappd.beerSearch(function(err,obj){
 		// todo: make this script run automatically after timeout and check to see if there is a response
 		// if (obj.meta.code === 429) {
@@ -81,12 +77,8 @@ function updateBeer(newBeer) {
 		// } else {
 		var beerData = obj.response.beers.items[0].beer;
 
-		console.log("\n" + beerData);
-
-
 		if (err) {
-			console.log("error with: " + newBeer);
-			console.log(err.stack);
+			throw err;
 		}
 		queryBuilder(beerData, newBeer.id);
 		// }
@@ -141,7 +133,6 @@ function beer() {
 					.replace("&", "")
 					.replace(".",""),
 			};
-			console.log(newBeer.q);
 			updateBeer(newBeer);
 		// });
 			// }
@@ -160,6 +151,9 @@ connection.connect(function(err) {
 	// eslint-disable-next-line no-console
 	console.log(newLine);
 	fs.writeFileSync("./log.txt", "Beer is running", function(err) {
+		if (err) throw err;
+	});
+	fs.writeFileSync("./err.txt", "Beer is running", function(err) {
 		if (err) throw err;
 	});
 	beer();
