@@ -47,22 +47,32 @@ module.exports = function(app) {
         if(totalDiff === 0) { //if the absolute value = 0, push pbm0 into potentialMatchArr0
           pbm0.push(beers_db.name[j]);
           pbm0.push(beers_db.brewery[j]);
+          pbm0.push(beers_db.abv[j]);
+          pbm0.push(beers_db.ibu[j]);
           potentialMatchArr0.push(pbm0);
         } else if (1 < totalDiff < 3) { //if the absolute value is between 1 & 3, push pbm13 into potentialMatchArr13
           pbm13.push(beers_db.name[j]);
           pbm13.push(beers_db.brewery[j]);
+          pbm13.push(beers_db.abv[j]);
+          pbm13.push(beers_db.ibu[j]);
           potentialMatchArr13.push(pbm13);
         } else if (4 < totalDiff < 6) { //if the absolute value is between 1 & 3, push pbm13 into potentialMatchArr46
           pbm46.push(beers_db.name[j]);
           pbm46.push(beers_db.brewery[j]);
+          pbm46.push(beers_db.abv[j]);
+          pbm46.push(beers_db.ibu[j]);
           potentialMatchArr46.push(pbm46);
         } else if (7 < totalDiff < 9) { //if the absolute value is between 1 & 3, push pbm13 into potentialMatchArr79
           pbm.push(beers_db.name[j]);
           pbm.push(beers_db.brewery[j]);
+          pbm79.push(beers_db.abv[j]);
+          pbm79.push(beers_db.ibu[j]);
           potentialMatchArr79.push(pbm79);
         } else if (10 < totalDiff < 12) { //if the absolute value is between 1 & 3, push pbm13 into potentialMatchArr1012
           pbm1012.push(beers_db.name[j]);
           pbm1012.push(beers_db.brewery[j]);
+          pbm1012.push(beers_db.abv[j]);
+          pbm1012.push(beers_db.ibu[j]);
           potentialMatchArr1012.push(pbm1012);
         }
 
