@@ -1,0 +1,38 @@
+.container {
+	background-color: white;
+	border-radius: 25px;
+	color: saddlebrown;
+}
+
+#sbg {
+	background-size: cover;
+	}
+
+h4 {
+    font-family: 'Permanent Marker', cursive;
+    color: #daa520;
+   	}
+
+.header {
+	background: #daa520;
+	color: white;
+	border-bottom: 2px solid white;
+}
+
+#submitBtn {
+	background-color: saddlebrown;
+}
+
+#brewerySurvey {
+	font-size: 3rem;
+	font-family: 'Permanent Marker', cursive;
+
+}
+
+#thirsty {
+	font-family: "Martel";
+}
+
+#prompt {
+	font-family: "Martel";
+}
