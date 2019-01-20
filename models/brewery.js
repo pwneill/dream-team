@@ -2,8 +2,8 @@ var orm = require("../config/orm");
 
 var brewery = {
 
-	selectAll: function(cb){
-		orm.selectAll("beer", "brewery", "id", function(res){
+	selectAll: function(locId, typeId, cb){
+		orm.selectAll("beer", "brewery", "id", "locationId", locId, "typeId", typeId, function(res){
 			res(cb);
 		});
 	}
