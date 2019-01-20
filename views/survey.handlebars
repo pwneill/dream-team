@@ -56,8 +56,8 @@
             <h4><strong>2.) What type of beer do you normally drink?</strong></h4>
             <select class="chosen-select" id="q2">
                 <option value="">** Select an option</option>
-                <option value="1">Cider</option>
-                <option value="2">Lager/Pilsner/Kolsch</option>
+                <option value="1">Sour</option>
+                <option value="2">Belgian/Lager/Pilsner/Kolsch</option>
                 <option value="3">Wheat Beer/Hefeweizen</option>
                 <option value="4">Porter</option>
                 <option value="5">Stout</option>
@@ -117,17 +117,16 @@
 
 
         var answer = {
-            genLoc: genLoc,
-            beerType: beerType,
+            location: genLoc,
+            type: beerType,
             abv: abv,
             ibu: ibu
         }
 
         console.log(answer);
 
-        var currentURL = window.location.origin;
-
-        $.post(currentURL + "/api/beers", answer, function(res) {
+        $.post("/api/beers", answer, function(res) {
+            console.log(answer)
             console.log(res);
                 }
             );

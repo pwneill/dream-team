@@ -5,16 +5,15 @@ module.exports = function (app) {
 
 	app.post("/api/beers", function (req, res) {
 		console.log(req.body);
-		var beerProfile = req.body.answer;
+		var beerProfile = req.body;
 		var locId = beerProfile.location;
+		var typeId = beerProfile.type;
 		
 		var userScore = [];
 		var beers = [];
 
-		lagerHead.selectAll(locId, function(req, res) {
-			res.forEach(function(beer) {
-				beers.push(beer);
-			});
+		lagerHead.selectAll(locId, typeId, function(res) {
+			console.log(res);
 		});
 
 		userScore.push(beerProfile.abv);
@@ -33,7 +32,7 @@ module.exports = function (app) {
 				scoreDiff += Math.abs(beerScore[j] - userScore[j]);
 			}
 
-			if (bestMatchArr.length === 0 || bestMatchArr[0].scoreDiff > scoreDiff) {
+			if (bestMatchArr.length === 0 || bestMatchArr[0].score > scoreDiff) {
 				var newBeer = {
 					id: beers[i].id,
 					name: beers[i].name,
@@ -60,7 +59,8 @@ module.exports = function (app) {
 						name: beers[i].food4name,
 						desc: beers[i].food4description,
 						delivers: beers[i].food4delivers
-					}
+					},
+					score: scoreDiff
 				};
 				bestMatchArr = [];
 				bestMatchArr.push(newBeer);

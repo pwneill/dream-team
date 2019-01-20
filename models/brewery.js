@@ -3,8 +3,8 @@ var orm = require("../config/orm");
 var brewery = {
 
 	selectAll: function(locId, typeId, cb){
-		orm.selectAll("beer", "brewery", "id", "locationId", locId, "typeId", typeId, function(res){
-			res(cb);
+		orm.selectAll("beer", "brewery", "brewery_id", "locationId", locId, "type_id", typeId, function(res){
+			cb(res);
 		});
 	}
 };
