@@ -9,6 +9,7 @@ module.exports = function(app) {
 		});
 	});
 
+<<<<<<< HEAD
 	// Load example page and pass in an example by id
 	app.get("/result", function(req, res) {
 		db.Example.findOne({ where: { id: req.params.id } }).then(function(dbExample) {
@@ -17,6 +18,21 @@ module.exports = function(app) {
 			});
 		});
 	});
+=======
+  app.get("/survey", function(req, res) {
+      res.render("survey", {
+      });
+  });
+
+  // Load example page and pass in an example by id
+  app.get("/result", function(req, res) {
+    db.Example.findOne({ where: { id: req.params.id } }).then(function(dbExample) {
+      res.render("result", {
+        example: dbExample
+      });
+    });
+  });
+>>>>>>> rich-working
 
 	// Render 404 page for any unmatched routes
 	app.get("*", function(req, res) {
