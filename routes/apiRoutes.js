@@ -1,4 +1,4 @@
-var db = require("../models");
+var db = require("../models/brewery");
 
 module.exports = function(app) {
 	// Get all examples
