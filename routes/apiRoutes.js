@@ -1,4 +1,4 @@
-var beers = require("../models/brewery");
+var lagerHead = require("../models/brewery");
 
 module.exports = function (app) {
 // Get all examples
@@ -11,7 +11,7 @@ module.exports = function (app) {
 		var userScore = [];
 		var beers = [];
 
-		beers.selectAll(locId, function(req, res) {
+		lagerHead.selectAll(locId, function(req, res) {
 			res.forEach(function(beer) {
 				beers.push(beer);
 			});
@@ -35,6 +35,7 @@ module.exports = function (app) {
 
 			if (bestMatchArr.length === 0 || bestMatchArr[0].scoreDiff > scoreDiff) {
 				var newBeer = {
+					id: beers[i].id,
 					name: beers[i].name,
 					brewery: beers[i].brewery,
 					abv: beers[i].abv,
@@ -66,6 +67,7 @@ module.exports = function (app) {
 
 			} else if (bestMatchArr[0].scoreDiff === scoreDiff) {
 				newBeer = {
+					id: beers[i].id,
 					name: beers[i].name,
 					brewery: beers[i].brewery,
 					abv: beers[i].abv,
@@ -111,6 +113,3 @@ module.exports = function (app) {
 	});
 
 };
-
-
-
