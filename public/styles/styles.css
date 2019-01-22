@@ -35,6 +35,8 @@ h3{
 }
 h5{
   font-weight: bold;
+  font-family: 'Permanent Marker', cursive;
+  font-size:38px;
   
 }
 
@@ -56,7 +58,8 @@ h5{
 h4 {
     font-family: 'Permanent Marker', cursive;
     color: #daa520;
-   	}
+     }
+     
 
 .header {
 	font-family: 'Permanent Marker';
@@ -85,16 +88,21 @@ h4 {
 }
 #food1-results {
   border-radius: 30px;
+  background-color: white;
 }
 #food2-results {
   border-radius: 30px;
+  background-color: white;
 }
 #food3-results {
   border-radius: 30px;
+  background-color: white;
 }
 #food4-results {
   border-radius: 30px;
+  background-color: white;
 }
 #beer-results {
   border-radius: 30px;
+  background-color: white;
 }
