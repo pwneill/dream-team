@@ -14,7 +14,7 @@ var orm = {
 		queryString += " WHERE " + colName2 + " = " + locId;
 		queryString += " AND " + colName3 + " = " + typeId;
 		connection.query(queryString, function (err, res) {
-			console.log(queryString)
+			console.log(queryString);
 			if (err) throw err;
 			cb(res);
 		});

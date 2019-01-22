@@ -20,6 +20,9 @@ CREATE TABLE brewery(
    food3_name VARCHAR(255),
    food3_description TEXT, 
    food3_url TEXT,
+   food4_name VARCHAR(255),
+   food4_description TEXT, 
+   food4_url TEXT,
    food4_delivers BOOLEAN DEFAULT FALSE,
 );
 
@@ -33,6 +36,7 @@ CREATE TABLE beer(
     beer_type VARCHAR(255),
     abv FLOAT NOT NULL,
     ibu FLOAT NOT NULL,
+    type_id INT NOT NULL,
     FOREIGN KEY fk_brewery(brewery_id)
     REFERENCES brewery(brewery_id)
     );

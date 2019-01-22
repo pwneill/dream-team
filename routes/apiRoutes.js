@@ -1,5 +1,99 @@
 var lagerHead = require("../models/brewery");
 
+function runLogic (beers, userScore) {
+	var bestMatchArr = [];
+	
+	for (var i = 1; i < beers.length; i++) {
+		var beerScore = [];
+		beerScore.push(beers[i].abv);
+		beerScore.push(beers[i].ibu);
+
+		var scoreDiff = 0;
+
+		for (var j = 0; j < 2; j++) {
+			scoreDiff += Math.abs(beerScore[j] - userScore[j]);
+		}
+
+		if (bestMatchArr.length === 0 || bestMatchArr[0].score > scoreDiff) {
+			// console.log("yo", bestMatchArr)
+			var newBeer = {
+				id: beers[i].beer_id,
+				name: beers[i].beer_name,
+				brewery: beers[i].brewery_name,
+				desc: beers[i].description,
+				abv: beers[i].abv,
+				ibu: beers[i].ibu,
+				label: beers[i].label,
+				food1: {
+					name: beers[i].food1_name,
+					desc: beers[i].food1_description,
+					url: beers[i].url,
+					delivers: beers[i].food1_delivers
+				},
+				food2: {
+					name: beers[i].food2_name,
+					desc: beers[i].food2_description,
+					url: beers[i].food2_url,
+					delivers: beers[i].food2_delivers
+				},
+				food3: {
+					name: beers[i].food3_name,
+					desc: beers[i].food3_description,
+					url: beers[i].food3_url,
+					delivers: beers[i].food3_delivers
+				},
+				food4name: {
+					name: beers[i].food4_name,
+					desc: beers[i].food4_description,
+					url: beers[i].food4_url,
+					delivers: beers[i].food4_delivers
+				},
+			};
+			bestMatchArr = [];
+			bestMatchArr.push(newBeer);
+
+		} else if (bestMatchArr[0].scoreDiff === scoreDiff) {
+			newBeer = {
+				id: beers[i].beer_id,
+				name: beers[i].beer_name,
+				brewery: beers[i].brewery_name,
+				desc: beers[i].description,
+				abv: beers[i].abv,
+				ibu: beers[i].ibu,
+				label: beers[i].label,
+				food1: {
+					name: beers[i].food1_name,
+					desc: beers[i].food1_description,
+					url: beers[i].url,
+					delivers: beers[i].food1_delivers
+				},
+				food2: {
+					name: beers[i].food2_name,
+					desc: beers[i].food2_description,
+					url: beers[i].food2_url,
+					delivers: beers[i].food2_delivers
+				},
+				food3: {
+					name: beers[i].food3_name,
+					desc: beers[i].food3_description,
+					url: beers[i].food3_url,
+					delivers: beers[i].food3_delivers
+				},
+				food4: {
+					name: beers[i].food4_name,
+					desc: beers[i].food4_description,
+					url: beers[i].food4_url,
+					delivers: beers[i].food4_delivers
+				},
+			};
+		}
+	}
+	var num = [(Math.floor(Math.random()) * (bestMatchArr.length))];
+	console.log(num);
+	var beerSelection =  bestMatchArr[num];
+	return console.log("hello", beerSelection);
+}
+
 module.exports = function (app) {
 // Get all examples
 
@@ -8,108 +102,25 @@ module.exports = function (app) {
 		var beerProfile = req.body;
 		var locId = beerProfile.location;
 		var typeId = beerProfile.type;
-		
-		var userScore = [];
-		var beers = [];
 
-		lagerHead.selectAll(locId, typeId, function(res) {
-			console.log(res);
-		});
+		var beers = [];
+		var userScore = [];
 
 		userScore.push(beerProfile.abv);
 		userScore.push(beerProfile.ibu);
 
-		var bestMatchArr = [];
-	
-		for (var i = 1; i < beers.length; i++) {
-			var beerScore = [];
-			beerScore.push(beers[i].abv);
-			beerScore.push(beers[i].ibu);
-
-			var scoreDiff = 0;
-
-			for (var j = 0; j < 2; j++) {
-				scoreDiff += Math.abs(beerScore[j] - userScore[j]);
-			}
-
-			if (bestMatchArr.length === 0 || bestMatchArr[0].score > scoreDiff) {
-				var newBeer = {
-					id: beers[i].id,
-					name: beers[i].name,
-					brewery: beers[i].brewery,
-					abv: beers[i].abv,
-					ibu: beers[i].ibu,
-					label: beers[i].label,
-					food1: {
-						name: beers[i].food1name,
-						desc: beers[i].food1description,
-						delivers: beers[i].food1delivers
-					},
-					food2: {
-						name: beers[i].food2name,
-						desc: beers[i].food2description,
-						delivers: beers[i].food2delivers
-					},
-					food3: {
-						name: beers[i].food3name,
-						desc: beers[i].food3description,
-						delivers: beers[i].food3delivers
-					},
-					food4: {
-						name: beers[i].food4name,
-						desc: beers[i].food4description,
-						delivers: beers[i].food4delivers
-					},
-					score: scoreDiff
-				};
-				bestMatchArr = [];
-				bestMatchArr.push(newBeer);
-
-			} else if (bestMatchArr[0].scoreDiff === scoreDiff) {
-				newBeer = {
-					id: beers[i].id,
-					name: beers[i].name,
-					brewery: beers[i].brewery,
-					abv: beers[i].abv,
-					ibu: beers[i].ibu,
-					label: beers[i].label,
-					food1: {
-						name: beers[i].food1name,
-						desc: beers[i].food1description,
-						delivers: beers[i].food1delivers
-					},
-					food2: {
-						name: beers[i].food2name,
-						desc: beers[i].food2description,
-						delivers: beers[i].food2delivers
-					},
-					food3: {
-						name: beers[i].food3name,
-						desc: beers[i].food3description,
-						delivers: beers[i].food3delivers
-					},
-					food4: {
-						name: beers[i].food4name,
-						desc: beers[i].food4description,
-						delivers: beers[i].food4delivers
-					}
-				};
-				bestMatchArr.push(newBeer);
-			}
-		}
-
-		var num = Math.random() * bestMatchArr.length;
-		var beerSelection =  beers[num];
-
-		res.json(beerSelection);
+		lagerHead.selectAll(locId, typeId, function(res) {
+			res.forEach(function(beer) {
+				beers.push(beer);
+			});
+			runLogic(beers, userScore);
+			// res.json(beerSelection);
+		});
 	});
-
-
 
 	app.post("/api/beers/random", function (req, res) {
 		var length = 60;
 		var randomNum = Math.floor(Math.random() + 1) * length;
 		res.json(randomNum);
 	});
-
 };
