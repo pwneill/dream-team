@@ -1,0 +1,50 @@
+.beer-background {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-image: url(/img/beer-background.png);
+  overflow: auto;
+}
+
+.header {
+  background: #daa520;
+  color: white;
+  border-bottom: 2px solid white;
+}
+
+h1,
+h2,
+h4,
+p {
+  font-family: "Permanent Marker", cursive;
+  color: #daa520;
+}
+
+#desc,
+.btn-info,
+.card-body {
+  font-family: "Permanent Marker", cursive;
+  background: #daa520;
+  color: white;
+}
+
+p, #desc {
+  font-size: 20px;
+}
+h1 {
+  font-size: 64px;
+}
+
+.header {
+  font-family: "Permanent Marker", cursive;
+  font-size: 64px;
+  background: #daa520;
+  color: white;
+  border-bottom: 2px solid white;
+}
+
+#brewerySurvey {
+  background: rgba(128, 64, 0, 0.65);
+}

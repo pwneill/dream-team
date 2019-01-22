@@ -1,113 +1,81 @@
-<!DOCTYPE html>
-
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-
-    <title>Beer!</title>
-
-    <script src="https://code.jquery.com/jquery.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
-    crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../public/styles/surveyStyle.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Martel|Permanent+Marker" rel="stylesheet">
-
-
-
-
-</head>
-
-<body id="sbg" background="beers.png">
-    <div class="container">
+<div class="beer-background">
+    <div class="container-fluid">
         <div class="row">
-            <h1 class="col-md-12 text-center header pt-2 pb-2"><i class="fas fa-beer pr-4"></i>Lager Head<i class="fas fa-beer pl-4"></i></h1>
+            <h1 class="col-md-12 text-center header pt-2 pr-2 pl-2 pb-2"><i class="fas fa-beer pr-4"></i>Lager Head<i
+                    class="fas fa-beer pl-4"></i></h1>
         </div>
         <div class="row">
-            <div class="col-md-12">
-                <h2 id="brewerySurvey" class="text-center">Brewery Survey</h2>
+            <div class="col-md-8 offset-2" id="brewerySurvey">
+                <div class="container">
+                    <h2 class="text-center pt-4">Your Taste Profile</h2>
+                    <div class="row pt-4">
+                        <div class="col">
+                            <form>
+                                <h2 class="pb-4" id="prompt">Please answer all questions to get a complete recommendation</h2>
+                                <h4><strong>1.) Where are you looking to drink?</strong></h4>
+                                <select class="chosen-select" id="q1">
+                                    <option value="">** Select an option</option>
+                                    <option value="1">Minneapolis (South)</option>
+                                    <option value="2">Minneapolis (Downtown)</option>
+                                    <option value="3">Minneapolis (Northeast)</option>
+                                    <option value="4">St. Paul</option>
+                                    <option value="5">Western Suburbs</option>
+                                </select>
+                                <div class="pb-5"></div>
+                                <h4><strong>2.) What type of beer do you normally drink?</strong></h4>
+                                <select class="chosen-select" id="q2">
+                                    <option value="">** Select an option</option>
+                                    <option value="1">Sour</option>
+                                    <option value="2">Belgian/Lager/Pilsner/Kolsch</option>
+                                    <option value="3">Wheat Beer/Hefeweizen</option>
+                                    <option value="4">Porter</option>
+                                    <option value="5">Stout</option>
+                                    <option value="6">Brown Ale</option>
+                                    <option value="7">Amber/Red Ale</option>
+                                    <option value="8">IPA</option>
+                                    <option value="9">Ale (other)</option>
+                                    <option value="10">None of the Above</option>
+                                </select>
+                                <div class="pb-5"></div>
+
+                                <h4><strong>3.) How alcoholic would you like your beer?</strong></h4>
+                                <select class="chosen-select" id="q3">
+                                    <option value="">** Select an option</option>
+                                    <option value="1">Least Alcoholic (Less Than 3.5% Alcohol by Volume)</option>
+                                    <option value="2">Somewhat Alcoholic (Between 3.5% and 5% ABV)</option>
+                                    <option value="3">Fairly Alcoholic (Between 5% and 6.5% ABV)</option>
+                                    <option value="4">Strongly Alcoholic (Between 6.5% and 8% ABV)</option>
+                                    <option value="5">Very Strongly Alcoholic (Higher than 8% ABV)</option>
+                                </select>
+                                <div class="pb-5"></div>
+
+
+                                <h4><strong>4.) How bitter do you like your beers?</strong></h4>
+                                <select class="chosen-select" id="q4">
+                                    <option value="">** Select an option</option>
+                                    <option value="1">Not at all bitter (5 - 25 International Bittering Units)</option>
+                                    <option value="2">Somewhat bitter (25 - 50 IBUs)</option>
+                                    <option value="3">Fairly bitter (50 - 75 IBUs)</option>
+                                    <option value="4">Very bitter (more than 75 IBUs)</option>
+                                </select>
+                                <br>
+                                <br>
+
+                                <button type="submit" class="btn btn-info mb-5" data-toggle="modal" data-target="#exampleModal"
+                                    id="submitBtn">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <hr>
-
-        <h3 id="thirsty">
-            <strong>What am I thirsty for tonight?</strong>
-        </h3>
-
-        <form>
-
-            <h2 id="prompt">Please answer all questions to get a complete recommendation</h2>
-
-            <h4><strong>1.) Where are you looking to drink?</strong></h4>
-            <select class="chosen-select" id="q1">
-                <option value="">** Select an option</option>
-                <option value="1">Minneapolis (South)</option>
-                <option value="2">Minneapolis (Downtown)</option>
-                <option value="3">Minneapolis (Northeast)</option>
-                <option value="4">St. Paul</option>
-                <option value="5">Western Suburbs</option>
-            </select>
-            <br>
-            <br>
-
-            <h4><strong>2.) What type of beer do you normally drink?</strong></h4>
-            <select class="chosen-select" id="q2">
-                <option value="">** Select an option</option>
-                <option value="1">Sour</option>
-                <option value="2">Belgian/Lager/Pilsner/Kolsch</option>
-                <option value="3">Wheat Beer/Hefeweizen</option>
-                <option value="4">Porter</option>
-                <option value="5">Stout</option>
-                <option value="6">Brown Ale</option>
-                <option value="7">Amber/Red Ale</option>
-                <option value="8">IPA</option>
-                <option value="9">Ale (other)</option>
-                <option value="10">None of the Above</option>
-            </select>
-            <br>
-            <br>
-
-            <h4><strong>3.) How alcoholic would you like your beer?</strong></h4>
-            <select class="chosen-select" id="q3">
-                <option value="">** Select an option</option>
-                <option value="1">Least Alcoholic (Less Than 3.5% Alcohol by Volume)</option>
-                <option value="2">Somewhat Alcoholic (Between 3.5% and 5% ABV)</option>
-                <option value="3">Fairly Alcoholic (Between 5% and 6.5% ABV)</option>
-                <option value="4">Strongly Alcoholic (Between 6.5% and 8% ABV)</option>
-                <option value="5">Very Strongly Alcoholic (Higher than 8% ABV)</option>
-            </select>
-            <br>
-            <br>
-
-            <h4><strong>4.) How bitter do you like your beers?</strong></h4>
-            <select class="chosen-select" id="q4">
-                <option value="">** Select an option</option>
-                <option value="1">Not at all bitter (5 - 25 International Bittering Units)</option>
-                <option value="2">Somewhat bitter (25 - 50 IBUs)</option>
-                <option value="3">Fairly bitter (50 - 75 IBUs)</option>
-                <option value="4">Very bitter (more than 75 IBUs)</option>
-            </select>
-            <br>
-            <br>
-
-            <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" id="submitBtn">Submit</button>
-            <br>
-            <br>
-        </form>
     </div>
+</div>
 
+<script type="text/javascript">
 
-    <script type="text/javascript">
-
-        $("#submitBtn").on("click", function (event) {
+    $("#submitBtn").on("click", function (event) {
         event.preventDefault();
-        console.log("Answers Saved")
-
-        // var matchStatus = $('.modal-title');
-        // var modalBody = $('.modal-body');
 
         // set responses to local variables
         var genLoc = parseInt($("#q1").val());
@@ -125,17 +93,12 @@
 
         console.log(answer);
 
-        $.post("/api/beers", answer, function(resp) {
+        $.post("/api/beers", answer, function (resp) {
             // console.log(answer)
-        }).then(function(resp) {
-            $.get("/result/", resp, function(data) {
+        }).then(function (resp) {
+            $.get("/result/", resp, function (data) {
             })
         });
     });
-        
 
-    </script>
-
-</body>
-
-</html>
+</script>
