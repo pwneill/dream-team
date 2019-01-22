@@ -25,3 +25,15 @@ p{
   font-family: 'Martel', serif;
   font-size:20px;
 }
+h3{
+  font-family: 'Permanent Marker', cursive;
+  font-size: 64px;
+  color:black;
+}
+#results{
+  background-color: rgb(250, 248, 248, 0.7);
+}
+h5{
+  font-weight: bold;
+  
+}
