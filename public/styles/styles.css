@@ -37,3 +37,49 @@ h5{
   font-weight: bold;
   
 }
+
+.container {
+	background-color: white;
+	border-radius: 25px;
+	color: saddlebrown;
+}
+
+#sbg {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-image: url(../img/beer-background.png);
+	}
+
+h4 {
+    font-family: 'Permanent Marker', cursive;
+    color: #daa520;
+   	}
+
+.header {
+	font-family: 'Permanent Marker';
+	font-size: 64px;
+	background: #daa520;
+	color: white;
+	border-bottom: 2px solid white;
+}
+
+#submitBtn {
+	background-color: saddlebrown;
+}
+
+#brewerySurvey {
+	font-size: 3rem;
+	font-family: 'Permanent Marker', cursive;
+
+}
+
+#thirsty {
+	font-family: "Martel";
+}
+
+#prompt {
+	font-family: "Martel";
+}

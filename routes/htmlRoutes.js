@@ -11,10 +11,9 @@ module.exports = function(app) {
 	// Load example page and pass in an example by id
 	app.get("/survey", function(req, res) {
 		res.render("survey", {
-			msg: "Welcome!"
 		});
 	});
-	
+
   // Load example page and pass in an example by id
   app.get("/result", function(req, res) {
     res.render("result", {
