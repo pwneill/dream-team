@@ -127,34 +127,12 @@
 
         $.post("/api/beers", answer, function(resp) {
             // console.log(answer)
-            console.log(resp);
-                }
-            );
-        }
-    );
-        
-       /* $("#submitBtn").on("click", function (event) {
-            console.log("Answers Saved")
-            event.preventDefault();
-
-            // set responses to local variables
-            var beerLocation = parseInt($('#q1').val());
-            var beerType = parseInt($('#q2').val());
-            var beerABV = parseInt($('#q3').val());
-            var beerBitter = parseInt($('#q4').val());
-
-            var userAnswers = {
-                location: beerLocation,
-                type: beerType,
-                abv: beerABV,
-                bitterness: beerBitter
-            }
-
-            $.post("/api/beers", userAnswers, function (data) {
-                console.log(userAnswers);
-                console.log(data)
+        }).then(function(resp) {
+            $.get("/result/", resp, function(data) {
             })
-        });*/
+        });
+    });
+        
 
     </script>
 

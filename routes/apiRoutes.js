@@ -115,7 +115,7 @@ module.exports = function (app) {
 				beers.push(beer);
 			});
 			var recommend = runLogic(beers, userScore);
-			resp.json(recommend);
+			resp.json(recommend.id);
 		});
 	});
 
