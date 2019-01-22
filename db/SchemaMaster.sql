@@ -23,7 +23,7 @@ CREATE TABLE brewery(
    food4_name VARCHAR(255),
    food4_description TEXT, 
    food4_url TEXT,
-   food4_delivers BOOLEAN DEFAULT FALSE,
+   food4_delivers BOOLEAN DEFAULT FALSE
 );
 
 DROP TABLE IF EXISTS beer;
