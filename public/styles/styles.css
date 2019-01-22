@@ -38,7 +38,7 @@ h5{
   
 }
 
-.container {
+#survey_container {
 	background-color: white;
 	border-radius: 25px;
 	color: saddlebrown;
@@ -81,5 +81,20 @@ h4 {
 }
 
 #prompt {
-	font-family: "Martel";
+  font-family: "Martel";
+}
+#food1-results {
+  border-radius: 30px;
+}
+#food2-results {
+  border-radius: 30px;
+}
+#food3-results {
+  border-radius: 30px;
+}
+#food4-results {
+  border-radius: 30px;
+}
+#beer-results {
+  border-radius: 30px;
 }
