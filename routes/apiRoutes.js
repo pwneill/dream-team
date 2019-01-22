@@ -1,6 +1,6 @@
 var lagerHead = require("../models/brewery");
 
-function runLogic (beers, userScore) {
+var runLogic = function (beers, userScore) {
 	var bestMatchArr = [];
 	
 	for (var i = 1; i < beers.length; i++) {
@@ -89,16 +89,17 @@ function runLogic (beers, userScore) {
 		}
 	}
 	var num = [(Math.floor(Math.random()) * (bestMatchArr.length))];
-	console.log(num);
+	// console.log(num);
 	var beerSelection =  bestMatchArr[num];
-	return console.log("hello", beerSelection);
-}
+	// console.log("hello", beerSelection);
+	return beerSelection;
+};
 
 module.exports = function (app) {
 // Get all examples
 
-	app.post("/api/beers", function (req, res) {
-		console.log(req.body);
+	app.post("/api/beers", function (req, resp) {
+		// console.log(req.body);
 		var beerProfile = req.body;
 		var locId = beerProfile.location;
 		var typeId = beerProfile.type;
@@ -113,8 +114,8 @@ module.exports = function (app) {
 			res.forEach(function(beer) {
 				beers.push(beer);
 			});
-			runLogic(beers, userScore);
-			// res.json(beerSelection);
+			var recommend = runLogic(beers, userScore);
+			resp.json(recommend);
 		});
 	});
 
