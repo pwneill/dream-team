@@ -26,7 +26,6 @@ var orm = {
 			if (err) {
 				console.log(err.stack);
 			}
-			console.log(queryString);
 			cb(res);
 		});
 	}

@@ -9,7 +9,6 @@ var brewery = {
 	}, 
 	selectRandom: function(cb){
 		orm.selectRandom("beer", "brewery_id", "brewery", function(res){
-			console.log(res);
 			cb(res);
 		});
 	}

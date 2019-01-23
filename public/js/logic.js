@@ -27,13 +27,13 @@ $("#submitBtn").on("click", function (event) {
 
 $("#randomBtn").on("click", function () {
 
-	$.post("/api/beers/random", function (res) {
-		console.log(res);
-		modalContent(res);
+	$.post("/api/beers/random", function (resp) {
+		modalContent(resp);
 	});
 });
 
 function modalContent(resp) {
+	console.log(resp);
 	$("#exampleModal").modal("show");
 	$("#header").text("Your match: " + resp.name + " from " + resp.brewery);
 	$("#description").append("<b>Type: </b>" + resp.type + "<br>" + "<b>Description: </b>" + resp.desc);
