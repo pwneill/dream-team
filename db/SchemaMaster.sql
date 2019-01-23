@@ -8,7 +8,7 @@ CREATE TABLE brewery(
    locationID INT NOT NULL,
    label TEXT,
    lat FLOAT,
-   long FLOAT,
+   lng FLOAT,
    food1_name VARCHAR(255),
    food1_description TEXT, 
    food1_url TEXT,
@@ -30,7 +30,8 @@ DROP TABLE IF EXISTS beer;
  
 CREATE TABLE beer(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    brewery_name VARCHAR(255) AUTO_INCREMENT NOT NULL,
+    beer_name VARCHAR(255) NOT NUll,
+    brewery_name VARCHAR(255) NOT NULL,
     brewery_id INT NOT NULL,
     description TEXT,
     beer_type VARCHAR(255),

@@ -68,8 +68,8 @@
                                 aria-labelledby="ModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
-                                        <div class="modal-header text-center">
-                                            <h5 class="justify-content-center" id="header"></h5>
+                                        <div class="modal-header">
+                                            <h5 class="mx-auto" id="header"></h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -80,7 +80,7 @@
                                                 <div class="container-fluid mb-2">
                                                     <div class="row">
                                                         <div class="col-md-6 pl-0 pr-1 border-right">
-                                                            <div>Description: <i><span id="description"></span></i></div>
+                                                            <div id="description"></div>
                                                             <div id="stats"></div>
                                                         </div>
                                                         <div class="col-md-5 pl-2 pr-0 mb-2">
@@ -94,16 +94,16 @@
                                                 <h5>Where to eat nearby: </h5>
                                                 <div class="container-fluid">
                                                     <div class="row">
-                                                        <div class="col border-right mt-2 mb-2" id="food1">
+                                                        <div class="col-md-3 border-right mt-2 mb-2" id="food1">
 
                                                         </div>
-                                                        <div class="col border-right mt-2 mb-2" id="food2">
+                                                        <div class="col-md-3 border-right mt-2 mb-2" id="food2">
 
                                                         </div>
-                                                        <div class="col border-right mt-2 mb-2" id="food3">
+                                                        <div class="col-md-3 border-right mt-2 mb-2" id="food3">
 
                                                         </div>
-                                                        <div class="col border-right mt-2 mb-2" id="food4">
+                                                        <div class="col-md-3 border-right mt-2 mb-2" id="food4">
 
                                                         </div>
                                                     </div>
@@ -125,45 +125,6 @@
     </div>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
-
-    <script type="text/javascript">
-
-        $("#submitBtn").on("click", function (event) {
-            event.preventDefault();
-
-            // set responses to local variables
-            var genLoc = parseInt($("#q1").val());
-            var beerType = parseInt($("#q2").val());
-            var abv = parseInt($("#q3").val());
-            var ibu = parseInt($("#q4").val());
-
-
-            var answer = {
-                location: genLoc,
-                type: beerType,
-                abv: abv,
-                ibu: ibu
-            }
-
-            console.log(answer);
-
-            $.post("/api/beers", answer, function (resp) {
-                console.log(resp);
-                $("#exampleModal").modal("show");
-                $("#header").text("Your match: " + resp.name + " from " + resp.brewery);
-                $("#description").text("Type: " + resp.type + "<br>" + "Description: " + resp.desc);
-                $("#stats").append("Key stats: " + "<br>" + "Abv: " + "|" + " IBU: " + resp.ibu);
-                $("#modal-img").attr("src", resp.label);
-                $("#food1").append("<b>" + resp.food1.name + "</b>" + "<br>" + "Serves: " + resp.food1.desc + "<br>" + "Delivers? " + resp.food1.delivers);
-
-                if (resp.food2.name != null) {
-                    $("#food2").append("<b>" + resp.food2.name + "</b>" + "<br>" + "Serves: " + resp.food2.desc + "<br>" + "Delivers? " + resp.food2.delivers);
-
-                    if (resp.food3.name != null) {
-                        $("#food3").append("<b>" + resp.food3.name + "</b>" + "<br>" + "Serves: " + resp.food3.desc + "<br>" + "Delivers? " + resp.food3.delivers);
-                    }
-                }
-            });
-        });
-
-    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+        <script src ="./js/logic.js"></script>
