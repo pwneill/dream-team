@@ -82,14 +82,23 @@ module.exports = function(app) {
 			res.forEach(function(beer) {
 				beers.push(beer);
 			});
-			var recommend = runLogic(beers, userScore);
-			console.log("yo", recommend);
-			resp.json(recommend);
+			var data = runLogic(beers, userScore);
+			resp.json(data);
 		});
 	});
 
 	app.post("/api/beers/random", function (req, resp) {
 		lagerHead.selectRandom(function(res){
+			var data = beerObj(res[0]);
+			resp.json(data);
+		});
+	});
+
+	app.post("/api/beers/search", function(req, resp) {
+		var query = req.body.query;
+		console.log(query);
+		lagerHead.selectOne(query, function (res) {
+			console.log(res);
 			var data = beerObj(res[0]);
 			resp.json(data);
 		});

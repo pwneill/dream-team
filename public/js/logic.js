@@ -1,36 +1,5 @@
 /* eslint-disable quotes */
 /* eslint-disable no-undef */
-$("#submitBtn").on("click", function (event) {
-	event.preventDefault();
-	
-	// set responses to local variables
-	var genLoc = parseInt($("#q1").val());
-	var beerType = parseInt($("#q2").val());
-	var abv = parseInt($("#q3").val());
-	var ibu = parseInt($("#q4").val());
-
-
-	var answer = {
-		location: genLoc,
-		type: beerType,
-		abv: abv,
-		ibu: ibu
-	};
-
-
-	$.post("/api/beers", answer, function (resp) {
-		console.log(resp);
-		modalContent(resp);
-
-	});
-});
-
-$("#randomBtn").on("click", function () {
-
-	$.post("/api/beers/random", function (resp) {
-		modalContent(resp);
-	});
-});
 
 function modalContent(resp) {
 	console.log(resp);
@@ -52,3 +21,47 @@ function modalContent(resp) {
 		}
 	}
 }
+
+$("#submitBtn").on("click", function (event) {
+	event.preventDefault();
+	
+	// set responses to local variables
+	var genLoc = parseInt($("#q1").val());
+	var beerType = parseInt($("#q2").val());
+	var abv = parseInt($("#q3").val());
+	var ibu = parseInt($("#q4").val());
+
+
+	var answer = {
+		location: genLoc,
+		type: beerType,
+		abv: abv,
+		ibu: ibu
+	};
+
+
+	$.post("/api/beers", answer, function (resp) {
+		modalContent(resp);
+
+	});
+});
+
+$("#randomBtn").on("click", function () {
+
+	$.post("/api/beers/random", function (resp) {
+		modalContent(resp);
+	});
+});
+
+$("#searchBtn").on("click", function(event) {
+	event.preventDefault();
+
+	var answer = {
+		query: $("#query").val()
+	};
+	
+	$.post("/api/beers/search", answer, function (resp) {
+		modalContent(resp);
+	});
+
+});

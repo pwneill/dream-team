@@ -11,7 +11,12 @@ var brewery = {
 		orm.selectRandom("beer", "brewery_id", "brewery", function(res){
 			cb(res);
 		});
-	}
+	},
+	selectOne: function(query, cb){
+		orm.selectOne("beer", "brewery_id", "brewery", "beer_name", query, function(res){
+			cb(res);
+		});
+	},
 };
 
 module.exports = brewery;
