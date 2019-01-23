@@ -95,6 +95,43 @@
             <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" id="submitBtn">Submit</button>
             <br>
             <br>
+
+             <!-- Modal -->
+              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" >
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Your Beer</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span >&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+
+                      <h2 id="matchBeer"></h2>
+                      <br>
+                      <div class="text-center">
+                      <img id="matchLabel" src="" alt="" height="50" width = "50">
+                      <br>
+                      <ul>
+                          <li id="matchBrewery"></li>
+                          <li id="matchDescription"></li>
+                          <li id="matchAbv"></li>
+                          <li id="matchIbu"></li>
+                          <li id="food1"></li>
+                          <li id="food2"></li>
+                          <li id="food3"></li>
+                          <li id="food4"></li>
+                      </ul>
+                    </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
         </form>
     </div>
 
@@ -105,8 +142,8 @@
         event.preventDefault();
         console.log("Answers Saved")
 
-        // var matchStatus = $('.modal-title');
-        // var modalBody = $('.modal-body');
+        var matchStatus = $('.modal-title');
+        var modalBody = $('.modal-body');
 
         // set responses to local variables
         var genLoc = parseInt($("#q1").val());
@@ -127,33 +164,22 @@
         $.post("/api/beers", answer, function(resp) {
             // console.log(answer)
             console.log(resp);
+        /*$("#matchBeer").html(resp.name);
+        $("#matchBrewery").html(resp.brewery);
+        $("#matchDescription").html(resp.description);
+        $("#matchAbv").hmtl(resp.abv);
+        $("#matchIbu").html(resp.ibu);
+        $("#matchLabel").attr("src",resp.label);
+        $("#food1").html(resp.food1);
+        $("#food2").html(resp.food2);
+        $("#food3").hmtl(resp.food3);
+        $("#food4").html(resp.food4);*/
+
                 }
             );
         }
     );
         
-       /* $("#submitBtn").on("click", function (event) {
-            console.log("Answers Saved")
-            event.preventDefault();
-
-            // set responses to local variables
-            var beerLocation = parseInt($('#q1').val());
-            var beerType = parseInt($('#q2').val());
-            var beerABV = parseInt($('#q3').val());
-            var beerBitter = parseInt($('#q4').val());
-
-            var userAnswers = {
-                location: beerLocation,
-                type: beerType,
-                abv: beerABV,
-                bitterness: beerBitter
-            }
-
-            $.post("/api/beers", userAnswers, function (data) {
-                console.log(userAnswers);
-                console.log(data)
-            })
-        });*/
 
     </script>
 
