@@ -67,8 +67,9 @@ $("#searchBtn").on("click", function(event) {
 		query: $("#query").val()
 	};
 
+	$("#query").html("");
+
 	$.post("/api/beers/search", answer, function (resp) {
 		modalContent(resp);
 	});
-	$("#searchBtn").html("");
 });

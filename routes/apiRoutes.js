@@ -105,7 +105,6 @@ module.exports = function(app) {
 
 	app.post("/api/beers/search", function(req, resp) {
 		var query = req.body.query;
-		console.log(query);
 		lagerHead.selectOne(query, function(res) {
 			console.log(res);
 			if (res.length > 0) {

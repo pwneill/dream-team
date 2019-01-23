@@ -2,13 +2,14 @@ module.exports = function(app) {
 	// Load index page
 	app.get("/", function(req, res) {
 		res.render("index", {
-			msg: "Welcome!"
+			title: "LagerHead"
 		});
 	});
 
 	// Load survey page
 	app.get("/survey", function(req, res) {
 		res.render("survey", {
+			title: "LagerHead - Survey"
 		});
 	});
 

@@ -10,8 +10,20 @@
 
 .header {
   background: #daa520;
-  color: white;
+  color: #ffffff;
   border-bottom: 2px solid white;
+  font-family: "Permanent Marker", cursive;
+  font-size: 64px;
+  background: #daa520;
+  border-bottom: 2px solid white;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+h1 {
+  font-size: 64px;
 }
 
 h1,
@@ -32,17 +44,6 @@ p {
 
 p, #desc {
   font-size: 20px;
-}
-h1 {
-  font-size: 64px;
-}
-
-.header {
-  font-family: "Permanent Marker", cursive;
-  font-size: 64px;
-  background: #daa520;
-  color: white;
-  border-bottom: 2px solid white;
 }
 
 #brewerySurvey {
