@@ -7,6 +7,11 @@ var brewery = {
 			cb(res);
 		});
 	}, 
+	selectAlNoType: function(locId, cb) {
+		orm.selectAllNoType("beer", "brewery","brewery_id", "locationId", locId, function(res){
+			cb(res);
+		});
+	},
 	selectRandom: function(cb){
 		orm.selectRandom("beer", "brewery_id", "brewery", function(res){
 			cb(res);

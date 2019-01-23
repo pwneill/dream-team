@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 var lagerHead = require("../models/brewery");
 
 function beerObj (beer) {
@@ -53,12 +54,12 @@ var runLogic = function(beers, userScore) {
 		}
 
 		if (bestMatchArr.length === 0 || bestMatchArr[0].score > scoreDiff) {
-			// console.log("yo", bestMatchArr)
 			var newBeer = beerObj(beers[i]);
 			bestMatchArr = [];
 			bestMatchArr.push(newBeer);
 		} else if (bestMatchArr[0].scoreDiff === scoreDiff) {
 			newBeer = beerObj(beers[i]);
+			bestMatchArr.push(newBeer);
 		}
 	}
 	var num = [Math.floor(Math.random()) * bestMatchArr.length];
@@ -79,9 +80,17 @@ module.exports = function(app) {
 		userScore.push(beerProfile.ibu);
 
 		lagerHead.selectAll(locId, typeId, function(res) {
-			res.forEach(function(beer) {
-				beers.push(beer);
-			});
+			if (res.length > 0) {
+				res.forEach(function(beer) {
+					beers.push(beer);
+				});
+			} else {
+				lagerHead.selectAlNoType(locId, function(res) {
+					res.forEach(function(beer) {
+						beers.push(beer);
+					});
+				});
+			}
 			var data = runLogic(beers, userScore);
 			resp.json(data);
 		});
@@ -97,10 +106,17 @@ module.exports = function(app) {
 	app.post("/api/beers/search", function(req, resp) {
 		var query = req.body.query;
 		console.log(query);
-		lagerHead.selectOne(query, function (res) {
+		lagerHead.selectOne(query, function(res) {
 			console.log(res);
-			var data = beerObj(res[0]);
-			resp.json(data);
+			if (res.length > 0) {
+				var data = beerObj(res[0]);
+				resp.json(data);
+			} else {
+				lagerHead.selectRandom(function(res) {
+					var data = beerObj(res[0]);
+					resp.json(data);
+				});
+			}
 		});
 	});
 };

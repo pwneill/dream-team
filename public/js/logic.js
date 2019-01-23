@@ -2,7 +2,14 @@
 /* eslint-disable no-undef */
 
 function modalContent(resp) {
-	console.log(resp);
+	$("#description").html("");
+	$("#stats").html("");
+	$("#modal-img").attr("src", "");
+	$("#food1").html("");
+	$("#food2").html("");
+	$("#food3").html("");
+	$("#food4").html("");
+
 	$("#exampleModal").modal("show");
 	$("#header").text("Your match: " + resp.name + " from " + resp.brewery);
 	$("#description").append("<b>Type: </b>" + resp.type + "<br>" + "<b>Description: </b>" + resp.desc);
@@ -59,9 +66,9 @@ $("#searchBtn").on("click", function(event) {
 	var answer = {
 		query: $("#query").val()
 	};
-	
+
 	$.post("/api/beers/search", answer, function (resp) {
 		modalContent(resp);
 	});
-
+	$("#searchBtn").html("");
 });

@@ -11,6 +11,15 @@ var orm = {
 			cb(res);
 		});
 	}, 
+	selectAllNoType: function (table1, table2, colName1, colName2, locId, cb) {
+		var queryString = "SELECT * FROM " + table1;
+		queryString += " LEFT JOIN " + table2 + " ON " + table1 + "." + colName1 + " = " + table2 + "." + colName1;
+		queryString += " WHERE " + colName2 + " = " + locId;
+		connection.query(queryString, function (err, res) {
+			if (err) throw err;
+			cb(res);
+		});
+	}, 
 	selectRandom: function (table1, colName, table2, cb){
 		var queryString = "SELECT * " + " FROM " + table1;
 		queryString += " LEFT JOIN " + table2 + " ON " + table1 + "." + colName + " = " + table2 + "." + colName;
@@ -31,7 +40,6 @@ var orm = {
 			if (err) {
 				console.log(err.stack);
 			}
-			console.log("MYSQL", queryString);
 			cb(res);
 		});
 	}
