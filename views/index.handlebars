@@ -52,11 +52,10 @@
 
 <script type="text/javascript">
   $("#random-search").on("click", function (event) {
-    event.preventDefault();
 
-    $.post("/api/beers/random", function (data) {
-      console.log(data)
+    $.post("/api/beers/random", function (res) {
+      console.log("foo")
+      console.log(res);
     })
-  });
   });
 </script>
