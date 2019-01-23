@@ -6,6 +6,12 @@ var brewery = {
 		orm.selectAll("beer", "brewery", "brewery_id", "locationId", locId, "type_id", typeId, function(res){
 			cb(res);
 		});
+	}, 
+	selectRandom: function(cb){
+		orm.selectRandom("Beer_Name", "Brewery_Name", "beers", function(res){
+			console.log(res);
+			cb(res);
+		});
 	}
 };
 
