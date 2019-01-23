@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 var connection = require("../config/connection.js");
 
 var orm = {
