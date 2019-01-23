@@ -1,8 +1,8 @@
 require("dotenv").config();
 var mysql = require("mysql");
 
-var User = "root";
-var Password = "LorissaLynn123118!";
+var User = process.env.DB_USER;
+var Password = process.env.DB_PASSWORD;
 
 var connection = mysql.createConnection({
 	host: "localhost",

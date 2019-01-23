@@ -115,17 +115,12 @@ module.exports = function(app) {
 		});
 	});
 
-<<<<<<< HEAD
 	app.post("/api/beers/random", function (resp) {
 		lagerHead.selectRandom(function(res){
 			console.log("yo");
-			console.log(res);
+			var data = res[0];
+			console.log(data);
+			resp.json(data);
 		});
-=======
-	app.post("/api/beers/random", function(req, res) {
-		var length = 60;
-		var randomNum = Math.floor(Math.random() + 1) * length;
-		res.json(randomNum);
->>>>>>> api-final-logic
 	});
 };

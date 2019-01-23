@@ -8,7 +8,7 @@ var brewery = {
 		});
 	}, 
 	selectRandom: function(cb){
-		orm.selectRandom("Beer_Name", "Brewery_Name", "beers", function(res){
+		orm.selectRandom("beer", "brewery_id", "brewery", function(res){
 			console.log(res);
 			cb(res);
 		});

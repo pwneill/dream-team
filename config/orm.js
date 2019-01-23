@@ -18,14 +18,15 @@ var orm = {
 			cb(res);
 		});
 	}, 
-	selectRandom: function (colName1, colName2, tableInput, cb){
-		var queryString = "SELECT * " + " FROM " + tableInput +" " + "ORDER BY rand()" + " " + "LIMIT 1";
+	selectRandom: function (table1, colName, table2, cb){
+		var queryString = "SELECT * " + " FROM " + table1;
+		queryString += " LEFT JOIN " + table2 + " ON " + table1 + "." + colName + " = " + table2 + "." + colName;
+		queryString += " ORDER BY rand() LIMIT 1";
 		connection.query(queryString, function(err, res){
 			if (err) {
 				console.log(err.stack);
 			}
 			console.log(queryString);
-			console.log("orm", res)
 			cb(res);
 		});
 	}
