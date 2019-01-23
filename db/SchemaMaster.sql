@@ -31,7 +31,6 @@ DROP TABLE IF EXISTS beer;
 CREATE TABLE beer(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     beer_name VARCHAR(255) NOT NUll,
-    brewery_name VARCHAR(255) NOT NULL,
     brewery_id INT NOT NULL,
     description TEXT,
     beer_type VARCHAR(255),

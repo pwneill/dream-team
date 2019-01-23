@@ -70,5 +70,5 @@ $("#searchBtn").on("click", function(event) {
 	$.post("/api/beers/search", answer, function (resp) {
 		modalContent(resp);
 	});
-	$("#searchBtn").html("");
+	$("#query").html("");
 });
