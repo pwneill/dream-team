@@ -6,6 +6,8 @@ function beerObj (beer) {
 		id: beer.id,
 		name: beer.beer_name,
 		brewery: beer.brewery_name,
+    latitude: beer.lat,
+    longitude: beer.lng,
 		type: beer.beer_type,
 		desc: beer.description,
 		abv: beer.abv,

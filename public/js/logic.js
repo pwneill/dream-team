@@ -27,6 +27,18 @@ function modalContent(resp) {
 			$("#food4").append("<b>" + resp.food4.name + "</b>" + "<br>" + "<b> Serves: </b>" + resp.food4.desc + "<br>" + "<b> Delivers? </b>" + resp.food4.delivers + "<br>" + '<a href="' + resp.food4.url + '">Website </a>');
 		}
 	}
+
+	var map = new google.maps.Map(document.getElementById('map'), {
+		zoom: 12,
+		center: {lat: resp.latitude, lng: resp.longitude},
+	});
+
+	new google.maps.Marker({
+		position: {lat: resp.latitude, lng: resp.longitude},
+		label: resp.brewery,
+		map: map
+	});
+
 }
 
 $("#submitBtn").on("click", function (event) {
