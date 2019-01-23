@@ -61,30 +61,33 @@ var runLogic = function (beers, userScore) {
 				abv: beers[i].abv,
 				ibu: beers[i].ibu,
 				label: beers[i].label,
-				food1: {
-					name: beers[i].food1_name,
-					desc: beers[i].food1_description,
-					url: beers[i].url,
-					delivers: beers[i].food1_delivers
-				},
-				food2: {
-					name: beers[i].food2_name,
-					desc: beers[i].food2_description,
-					url: beers[i].food2_url,
-					delivers: beers[i].food2_delivers
-				},
-				food3: {
-					name: beers[i].food3_name,
-					desc: beers[i].food3_description,
-					url: beers[i].food3_url,
-					delivers: beers[i].food3_delivers
-				},
-				food4: {
-					name: beers[i].food4_name,
-					desc: beers[i].food4_description,
-					url: beers[i].food4_url,
-					delivers: beers[i].food4_delivers
-				},
+				food:{
+					food1: {
+						name: beers[i].food1_name,
+						desc: beers[i].food1_description,
+						url: beers[i].url,
+						delivers: beers[i].food1_delivers
+					},
+					food2: {
+						name: beers[i].food2_name,
+						desc: beers[i].food2_description,
+						url: beers[i].food2_url,
+						delivers: beers[i].food2_delivers
+					},
+					food3: {
+						name: beers[i].food3_name,
+						desc: beers[i].food3_description,
+						url: beers[i].food3_url,
+						delivers: beers[i].food3_delivers
+					},
+					food4: {
+						name: beers[i].food4_name,
+						desc: beers[i].food4_description,
+						url: beers[i].food4_url,
+						delivers: beers[i].food4_delivers
+					}
+				}
+
 			};
 		}
 	}
