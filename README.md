@@ -2,7 +2,7 @@
 
 Lager Head is an application that allows a user to take a quiz that, based on his/her answers to said quiz, will match the user with a beer, the brewery that the beer is at, some facts about the beer (description, abv, ibu), as well as some nearby food options. 
 
-This application utilizes Express.js, Node.js, Handlebars, HTML, CSS, Bootstrap, JavaScript, and MySQL. We also utilized a 3rd party API called Untappd in order to fill our database with relevant information, as well as a NPM package called node-untappd to handle CORS issues with the Untappd API. In order for a user to engage with this application, he/she simply needs to install Node.js (if that is not already installed), and then using his/her terminal, navigate to the folder where the server.js file is located. Once there, the user can type in **node server.js** and navigate to **localhost: 8080/** in their browser of choice.
+This application utilizes Express.js, Node.js, Handlebars, HTML, CSS, Bootstrap, JavaScript, and MySQL. We also utilized a 3rd party API called Untappd in order to update the database with specific information about each brewery/beer, as well as a NPM package called node-untappd to handle CORS issues with the Untappd API. In order for a user to engage with this application, he/she simply needs to install Node.js (if that is not already installed), and then using his/her terminal, navigate to the folder where the server.js file is located. Once there, the user can type in **node server.js** and navigate to **localhost: 8080/** in their browser of choice.
 
 From there, the user has a couple of options. The user can either navigate to take a survey, search for a beer in the database, or get a random beer from the database. 
 
