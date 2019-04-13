@@ -21,7 +21,6 @@
     "mysql2": "^1.6.4",
     "node-untappd": "^0.4.1",
     "request": "^2.88.0",
-    "sequelize": "^4.41.2",
     "sync-mysql": "^3.0.1"
   },
   "devDependencies": {
